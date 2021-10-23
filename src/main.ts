@@ -12,5 +12,4 @@ const app = createApp(App);
 app.use(ElementPlus);
 
 app.use(globalComponent);
-
 app.mount("#app");

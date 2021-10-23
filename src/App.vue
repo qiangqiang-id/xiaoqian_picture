@@ -1,7 +1,7 @@
 <template>
   <AppHeader />
 
-  <el-container class="app-body">
+  <el-container>
     <AppPanel />
 
     <AppMain />
@@ -30,6 +30,7 @@ export default defineComponent({
 });
 </script>
 
+<style src="@/style/index.css"></style>
 <style lang="scss">
 html,
 body {
