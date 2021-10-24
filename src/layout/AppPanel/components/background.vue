@@ -7,7 +7,8 @@
           class="color-item"
           v-for="item in colorList"
           :key="item"
-          :style="`background:rgb(${item})`"
+          :style="`background:${item}`"
+          @click="setBackgroundColor(item)"
         />
       </ul>
     </div>
@@ -22,6 +23,8 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import SelectFile from "@/components/select-file/index.vue";
+import background from "@/state/background";
+import { fileToBase64 } from "@/utils/tool";
 
 import { colorList, fileType } from "./options";
 
@@ -35,15 +38,29 @@ export default defineComponent({
   setup() {
     const selectFileRef: any = ref(null);
 
-    function handleInput(e: File) {
-      console.log(e);
+    const { setBackgroundInfo } = background;
+
+    async function handleInput(e: File) {
+      const base64 = await fileToBase64(e);
+      setBackgroundInfo.value({ image: base64 as string });
     }
 
     function handleClick() {
       selectFileRef.value?.select?.();
     }
 
-    return { colorList, selectFileRef, fileType, handleInput, handleClick };
+    function setBackgroundColor(item: string) {
+      setBackgroundInfo.value({ color: item });
+    }
+
+    return {
+      colorList,
+      selectFileRef,
+      fileType,
+      handleInput,
+      handleClick,
+      setBackgroundColor,
+    };
   },
 });
 </script>
@@ -74,6 +91,10 @@ export default defineComponent({
     border-radius: 4px;
     margin: 4px 4px;
     cursor: pointer;
+    &:hover {
+      transform: scale(1.2);
+      transition: transform 0.3s;
+    }
   }
 }
 </style>

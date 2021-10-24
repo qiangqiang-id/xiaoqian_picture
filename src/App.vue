@@ -30,7 +30,7 @@ export default defineComponent({
 });
 </script>
 
-<style src="@/style/index.css"></style>
+<style src="@/style/index.scss"></style>
 <style lang="scss">
 html,
 body {

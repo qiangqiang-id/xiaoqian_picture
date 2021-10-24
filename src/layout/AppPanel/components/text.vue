@@ -7,8 +7,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import { Text, textList } from "./options";
+import { defaultTextComponent } from "@/plugin/font";
+import useStraw from "@/state/straws";
+import { genRandomCode } from "@/utils/tool";
 
 export default defineComponent({
   name: "Text",
@@ -16,8 +19,24 @@ export default defineComponent({
   components: {},
 
   setup() {
+    const { addStraw } = useStraw;
+
     function handleAddText(item: Text) {
-      console.log(item);
+      const textData = {
+        id: genRandomCode(),
+        top: item.height / 2,
+        left: item.width / 2,
+        width: item.width,
+        height: item.height,
+        text: item.text,
+        richText: item.text,
+        fontSize: item.size,
+        lineHeight: item.lineHeight,
+      };
+
+      const data = reactive({ ...defaultTextComponent, ...textData });
+
+      addStraw.value(data);
     }
     return { textList, handleAddText };
   },
