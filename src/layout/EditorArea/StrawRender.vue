@@ -1,38 +1,50 @@
 <template>
-  <div class="straws-render-container mosaic-background">
+  <div
+    class="straws-render-container mosaic-background"
+    @mousedown="$emit('handleMouseDownLeft', $event)"
+  >
     <div class="straw-background" :style="renderBackground" />
 
     <template v-for="straw in straws" :key="straw.id">
-      <StrawElement :straw="straw" v-bind="$attrs" />
+      <StrawElement :ref="straw.id" :straw="straw" v-bind="$attrs" />
     </template>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import background from "@/state/background";
-import StrawElement from "./StrawElement.vue";
-import useStraws from "@/state/straws";
+import { defineComponent, computed } from 'vue';
+import useBackground from '@/state/background';
+import StrawElement from './StrawElement.vue';
+import useStraws from '@/state/straws';
 
 export default defineComponent({
-  name: "StrawsRender",
+  name: 'StrawsRender',
 
   components: {
     StrawElement,
   },
 
+  emits: {
+    handleMouseDownLeft: null,
+  },
+
   setup() {
-    const { backgroundInfo } = background;
+    const { color, image, opacity } = useBackground();
+    const { straws } = useStraws();
 
     const renderBackground = computed(() => {
       return {
-        backgroundColor: backgroundInfo.value.color,
-        backgroundImage: `url(${backgroundInfo.value.image})`,
-        opacity: backgroundInfo.value.opacity ?? 1,
+        backgroundColor: color.value,
+        backgroundImage: `url(${image.value})`,
+        opacity: opacity.value ?? 1,
       };
     });
 
-    return { renderBackground, straws: useStraws.straws };
+    const handleMouseDownLeft = (event: Event) => {
+      console.log('cahufa', event.target);
+    };
+
+    return { renderBackground, straws, handleMouseDownLeft };
   },
 });
 </script>

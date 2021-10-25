@@ -11,22 +11,30 @@
 </template>
 
 <script lang="ts">
-import AppHeader from "./layout/appHeader.vue";
-import AppMain from "./layout/AppMain.vue";
-import AppPanel from "./layout/AppPanel/index.vue";
-import AppControl from "./layout/AppControl/index.vue";
-import { defineComponent } from "vue";
+import AppHeader from './layout/appHeader.vue';
+import AppMain from './layout/AppMain.vue';
+import AppPanel from './layout/AppPanel/index.vue';
+import AppControl from './layout/AppControl/index.vue';
+import { defineComponent } from 'vue';
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 export default defineComponent({
-  name: "App",
+  name: 'App',
+
   components: {
     AppHeader,
     AppMain,
     AppPanel,
     AppControl,
   },
-  setup() {},
+
+  setup() {
+    window.addEventListener('beforeunload', (event) => {
+      const confirmationMessage = '\o/';
+      (event || window.event).returnValue = confirmationMessage; //Gecko + IE
+      return confirmationMessage; //Webkit, Safari, Chrome
+    });
+  },
 });
 </script>
 

@@ -21,15 +21,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import SelectFile from "@/components/select-file/index.vue";
-import background from "@/state/background";
-import { fileToBase64 } from "@/utils/tool";
+import { defineComponent, ref } from 'vue';
+import SelectFile from '@/components/select-file/index.vue';
+import useBackground from '@/state/background';
+import { fileToBase64 } from '@/utils/tool';
 
-import { colorList, fileType } from "./options";
+import { colorList, fileType } from './options';
 
 export default defineComponent({
-  name: "Background",
+  name: 'Background',
 
   components: {
     SelectFile,
@@ -38,11 +38,11 @@ export default defineComponent({
   setup() {
     const selectFileRef: any = ref(null);
 
-    const { setBackgroundInfo } = background;
+    const { setBackgroundInfo } = useBackground();
 
     async function handleInput(e: File) {
       const base64 = await fileToBase64(e);
-      setBackgroundInfo.value({ image: base64 as string });
+      setBackgroundInfo({ image: base64 as string });
     }
 
     function handleClick() {
@@ -50,7 +50,7 @@ export default defineComponent({
     }
 
     function setBackgroundColor(item: string) {
-      setBackgroundInfo.value({ color: item });
+      setBackgroundInfo({ color: item, image: '' });
     }
 
     return {

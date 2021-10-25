@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "element-plus": "^1.1.0-beta.24",
+    "moveable": "^0.26.0",
     "vue": "^3.2.6"
   },
   "devDependencies": {

@@ -4,13 +4,13 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
-import { toStrawStyle } from "@/utils/helper";
-import Text from "./text/index.vue";
-import Image from "./image/index.vue";
+import { defineComponent, onMounted } from 'vue';
+import { toStrawStyle } from '@/utils/helper';
+import Text from './text/index.vue';
+import Image from './image/index.vue';
 
 export default defineComponent({
-  name: "StrawElement",
+  name: 'StrawElement',
 
   components: {
     Text,

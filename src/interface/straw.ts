@@ -17,6 +17,7 @@ export interface strawText {
   color: string;
   textDecoration: string;
   fontFamily?: string;
+  locked: boolean;
   writingMode?: string;
   stroke?: Array<Stroke>;
   shadow?: Array<Shadow>;
@@ -88,6 +89,8 @@ export interface strawImage {
   src: string;
   opacity: number;
   format: string;
+  locked: boolean;
+  type: string;
   imageDatas: ImageDatas;
 }
 

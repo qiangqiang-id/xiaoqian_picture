@@ -21,15 +21,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import panelList from "./panelMap";
-import Image from "./components/image.vue";
-import Background from "./components/background.vue";
-import Shape from "./components/shape.vue";
-import Text from "./components/text.vue";
+import { defineComponent, ref } from 'vue';
+import panelList from './panelMap';
+import Image from './components/image.vue';
+import Background from './components/background.vue';
+import Shape from './components/shape.vue';
+import Text from './components/text.vue';
 
 export default defineComponent({
-  name: "Panel",
+  name: 'Panel',
 
   components: {
     Image,

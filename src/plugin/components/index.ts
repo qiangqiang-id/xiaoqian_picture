@@ -1,5 +1,5 @@
-import { App } from "vue";
-import SvgIcon from "@/components/svg-icon/index.vue";
+import { App } from 'vue';
+import SvgIcon from '@/components/svg-icon/index.vue';
 const comps = Object.assign([SvgIcon]);
 
 export default {

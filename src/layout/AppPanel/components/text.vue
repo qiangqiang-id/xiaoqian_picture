@@ -7,19 +7,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
-import { Text, textList } from "./options";
-import { defaultTextComponent } from "@/plugin/font";
-import useStraw from "@/state/straws";
-import { genRandomCode } from "@/utils/tool";
+import { defineComponent, reactive } from 'vue';
+import { Text, textList } from './options';
+import { defaultTextComponent } from '@/plugin/font';
+import useStraws from '@/state/straws';
+import { genRandomCode } from '@/utils/tool';
 
 export default defineComponent({
-  name: "Text",
+  name: 'Text',
 
   components: {},
 
   setup() {
-    const { addStraw } = useStraw;
+    const { addStraw } = useStraws();
 
     function handleAddText(item: Text) {
       const textData = {
@@ -36,7 +36,7 @@ export default defineComponent({
 
       const data = reactive({ ...defaultTextComponent, ...textData });
 
-      addStraw.value(data);
+      addStraw(data);
     }
     return { textList, handleAddText };
   },

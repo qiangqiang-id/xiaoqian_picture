@@ -7,11 +7,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { shapeList, Shape } from "./options";
+import { defineComponent } from 'vue';
+import { shapeList, Shape } from './options';
 
 export default defineComponent({
-  name: "Shape",
+  name: 'Shape',
 
   components: {},
 

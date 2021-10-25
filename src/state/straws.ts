@@ -1,5 +1,5 @@
-import { reactive, toRefs } from "vue";
-import { strawText, strawImage } from "@/interface/straw";
+import { reactive } from 'vue';
+import { strawText, strawImage } from '@/interface/straw';
 
 const straws: Array<strawText | strawImage> = reactive([]);
 
@@ -14,10 +14,12 @@ function remveStraw(id: string) {
   }
 }
 
-const attrObj = reactive({
-  straws,
-  addStraw,
-  remveStraw,
-});
+function useStraws() {
+  return {
+    straws,
+    addStraw,
+    remveStraw,
+  };
+}
 
-export default toRefs(attrObj);
+export default useStraws;

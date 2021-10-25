@@ -7,7 +7,7 @@ export const blobToBase64 = (blob: Blob): Promise<string> => {
     // readAsDataURL
     fileReader.readAsDataURL(blob);
     fileReader.onerror = () => {
-      reject(new Error("blobToBase64 error"));
+      reject(new Error('blobToBase64 error'));
     };
   });
 };
@@ -20,7 +20,7 @@ export const fileToBase64 = (file: File) => {
     };
     fileReader.readAsDataURL(file);
     fileReader.onerror = () => {
-      reject(new Error("fileToBase64 error"));
+      reject(new Error('fileToBase64 error'));
     };
   });
 };
@@ -37,4 +37,17 @@ export const genRandomCode = () => {
   codes[code] && (code = assistForGenRandomCode());
   codes[code] = 1;
   return code;
+};
+
+export const getUploadImageWidthAndHeight = (
+  base64: string,
+): Promise<{ width: number; height: number }> => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.src = base64;
+    image.onload = function () {
+      resolve({ width: image.naturalWidth, height: image.naturalHeight });
+    };
+    image.onerror = reject;
+  });
 };

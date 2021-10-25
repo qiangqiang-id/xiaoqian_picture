@@ -5,11 +5,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import EditorArea from "./EditorArea/index.vue";
+import { defineComponent } from 'vue';
+import EditorArea from './EditorArea/index.vue';
 
 export default defineComponent({
-  name: "AppMain",
+  name: 'AppMain',
 
   components: {
     EditorArea,

@@ -1,22 +1,19 @@
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, readonly } from 'vue';
 
-interface BackgroundInfo {
-  color?: string;
-  image?: string;
-  opacity?: number;
-}
-const backgroundInfo: BackgroundInfo = reactive({
-  color: "",
-  image: "",
+const backgroundInfo = reactive({
+  color: '',
+  image: '',
   opacity: 1,
 });
 
-function setBackgroundInfo(info: BackgroundInfo) {
+function setBackgroundInfo(info: object) {
   Object.assign(backgroundInfo, info);
 }
 
-const attrObj = reactive({
-  backgroundInfo,
-  setBackgroundInfo,
-});
-export default toRefs(attrObj);
+function useBackground() {
+  return {
+    ...toRefs(readonly(backgroundInfo)),
+    setBackgroundInfo,
+  };
+}
+export default useBackground;
