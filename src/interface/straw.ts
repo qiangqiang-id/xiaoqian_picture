@@ -114,3 +114,5 @@ export interface strawShape extends PublicProp {
   strokeLength: number;
   strokeSpacing: number;
 }
+
+export type Straw = strawImage | strawText | strawShape;

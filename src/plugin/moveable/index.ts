@@ -1,43 +1,23 @@
-import Moveable from 'moveable';
+import Moveable, { OnResizeStart, OnResizeEnd, OnResize, OnDrag, OnDragEnd } from 'moveable';
 import useStraws from '@/store/straws';
-import { GROUP_RENDER_DIRECTIONS, DEFAULT_RENDER_DIRECTIONS } from '@/constants/moveable';
+import {
+  GROUP_RENDER_DIRECTIONS,
+  DEFAULT_RENDER_DIRECTIONS,
+  DIRECTIONS_ENUM,
+} from '@/constants/moveable';
 import { isGroupStraw, n2px } from '@/utils/helper';
-import { isEqualArray, difference, uniq } from '@/utils/tool';
-import { MoveableEvent } from '@/interface/moveable';
-export let moveable: any = null;
+import { isEqualArray, difference, uniq, sleep } from '@/utils/tool';
+import { Straw } from '@/interface/straw';
 
+export let moveable: any = null;
 let strawRender: any = null;
+const { straws, setSelectedStraw, setTargetStraws, editStraw } = useStraws();
 
 export function setStrawRenderRef(vm: any) {
   strawRender = vm;
 }
 
-export function initMoveable(el: HTMLElement) {
-  moveable = new Moveable(el, {
-    target: [],
-    snappable: true,
-    snapCenter: true,
-    dragArea: true,
-    origin: false,
-  });
-
-  moveable.on('drag', onDrag);
-  moveable.on('dragEnd', onDragEnd);
-}
-
-export function getTargetVM(target0: HTMLElement) {
-  const id = target0.getAttribute('data-id') as string;
-  const vm = strawRender.$refs[id];
-  return vm;
-}
-
-export function getTargetVMById(id: string) {
-  const vm = strawRender.$refs[id];
-  return vm;
-}
-
-export function updateMoveableState() {
-  const { straws } = useStraws();
+export async function updateMoveableState() {
   if (moveable.target.length === 0) return;
   const [target0] = moveable.target;
 
@@ -71,8 +51,35 @@ export function updateMoveableState() {
   moveable.className = className.join(' ');
 }
 
+export function initMoveable(el: HTMLElement) {
+  moveable = new Moveable(el, {
+    target: [],
+    snappable: true,
+    snapCenter: true,
+    // dragArea: true,
+    origin: false,
+  });
+
+  moveable.on('drag', onDrag);
+  moveable.on('dragEnd', onDragEnd);
+  moveable.on('resizeStart', onResizeStart);
+  moveable.on('resize', onResize);
+  moveable.on('resizeEnd', onResizeEnd);
+}
+
+export function getTargetVM(target0: HTMLElement) {
+  const id = target0.getAttribute('data-id') as string;
+  const vm = strawRender.$refs[id];
+  return vm;
+}
+
+export function getTargetVMById(id: string) {
+  const vm = strawRender.$refs[id];
+  return vm;
+}
+
 // TODO: 分离 select 和 target
-export function setMoveableTarget(target: HTMLElement[] | null) {
+export async function setMoveableTarget(target: HTMLElement[] | null) {
   const oldTarget = moveable.target;
   const { straws } = useStraws();
 
@@ -82,10 +89,15 @@ export function setMoveableTarget(target: HTMLElement[] | null) {
 
   moveable.target = target;
 
-  // targetStraws = target;
-  //   .map(el => straws.find(straw => straw.id === el.dataset.id))
-  //   .filter(s => s);
-  // selectedStraw = null;
+  await sleep();
+
+  const list: Array<Straw | undefined> = target
+    .map((el) => straws.find((straw) => straw.id === el.dataset.id))
+    .filter((s) => s);
+  const targets = list ? list : [];
+
+  setTargetStraws(targets as Array<Straw>);
+  setSelectedStraw(null);
 
   const leaveTargets = difference(oldTarget, target);
 
@@ -117,20 +129,108 @@ export function setMoveableTarget(target: HTMLElement[] | null) {
   updateMoveableState();
 }
 
-function onDrag(event: MoveableEvent) {
+function onDrag(event: OnDrag) {
   const { target, top, left } = event;
   target.style.top = n2px(top);
   target.style.left = n2px(left);
 
-  const { editStraw } = useStraws();
-
   target.dataset.id && editStraw(target.dataset.id, { top, left });
 
-  const targetVM = getTargetVM(target);
+  const targetVM = getTargetVM(target as HTMLElement);
   targetVM?.strawHooks?.moveable?.onDrag?.(event);
 }
 
-function onDragEnd(event: MoveableEvent) {
-  const targetVM = getTargetVM(event.target);
+function onDragEnd(event: OnDragEnd) {
+  const targetVM = getTargetVM(event.target as HTMLElement);
   targetVM?.strawHooks?.moveable?.onDragEnd?.(event);
+}
+
+function onResizeStart(event: OnResizeStart) {
+  const { target, datas, direction } = event;
+  datas.startTop = (target as HTMLElement).offsetTop;
+  datas.startLeft = (target as HTMLElement).offsetLeft;
+  datas.startWidth = (target as HTMLElement).offsetWidth;
+  datas.startHeight = (target as HTMLElement).offsetHeight;
+
+  // datas.isGroup = isGroupElement(target);
+
+  const targetVM = getTargetVM(target as HTMLElement);
+  datas.targetVM = targetVM;
+
+  moveable.keepRatio = targetVM?.strawHooks?.moveable?.keepRatio?.includes(
+    DIRECTIONS_ENUM[direction.join()],
+  );
+
+  targetVM?.strawHooks?.moveable?.onResizeStart?.(event);
+}
+
+function onResize(event: OnResize) {
+  /**
+   * nw      n      ne
+   * [-1,-1] [0,-1] [1,-1]
+   * w              e
+   * [-1, 0] [0, 0] [1, 0]
+   * sw      s      se
+   * [-1, 1] [0, 1] [1, 1]
+   */
+
+  const { target, width, height, drag, datas } = event;
+
+  datas.scale = [width / datas.startWidth, height / datas.startHeight];
+
+  target.style.width = n2px(width);
+  target.style.height = n2px(height);
+
+  // const straw = straws.find((straw) => straw.id === target.dataset.id);
+  // straw.width = width;
+  // straw.height = height;
+
+  target.dataset.id && editStraw(target.dataset.id, { width, height });
+
+  // if (datas.isGroup) {
+  // target.firstElementChild.style.transform = `scale(${datas.scale[0]}, ${datas.scale[1]})`;
+  // target.firstElementChild.style.transformOrigin = 'left top';
+  // }
+
+  datas.targetVM?.strawHooks?.moveable?.onResize?.(event);
+
+  onDrag(drag);
+}
+
+function onResizeEnd(event: OnResizeEnd) {
+  const { target, datas } = event;
+
+  if (!target.dataset.id) return;
+  // const straw = findStrawById(straws, target.dataset.id);
+
+  // const update = (straws) => {
+  straws.forEach((straw) => {
+    straw.top = straw.top * datas.scale[1];
+    // straw.left = straw.left * datas.scale[0];
+    // straw.width = straw.width * datas.scale[0];
+    // straw.height = straw.height * datas.scale[1];
+
+    // const el = document.querySelector(`[data-id='${straw.id}']`);
+
+    // el.style.top = n2px(straw.top);
+    // el.style.left = n2px(straw.left);
+    // el.style.width = n2px(straw.width);
+    // el.style.height = n2px(straw.height);
+
+    // if (isGroupElement(el)) {
+    // update(straw.straws);
+    // } else {
+    const vm = getTargetVMById(straw.id);
+    vm?.strawHooks?.moveable?.onResizeEndInGroup?.(event);
+    // }
+  });
+  // };
+
+  // if (datas.isGroup) {
+  //   target.firstElementChild.style.transform = '';
+  //   target.firstElementChild.style.transformOrigin = '';
+  //   update(straw.straws);
+  // }
+
+  datas?.targetVM?.strawHooks?.moveable?.onResizeEnd?.(event);
 }

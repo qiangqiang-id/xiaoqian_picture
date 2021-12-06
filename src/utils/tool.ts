@@ -59,3 +59,9 @@ export const isEqualArray = (a: Array<any>, b: Array<any>): boolean =>
   a.length === b.length && uniq([...a, ...b]).length === a.length;
 
 export const difference = (a: Array<any>, b: Array<any>) => a.filter((item) => !b.includes(item));
+
+export const sleep = (daley = 0): Promise<undefined> => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(undefined), daley);
+  });
+};

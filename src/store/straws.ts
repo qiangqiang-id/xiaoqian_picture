@@ -1,39 +1,40 @@
 import { reactive, ref, Ref } from 'vue';
-import { strawText, strawImage, strawShape } from '@/interface/straw';
+import { Straw } from '@/interface/straw';
 
 // 模板中所有的straw
-const straws: Array<strawText | strawImage | strawShape> = reactive([]);
+const straws: Array<Straw> = reactive([]);
 
-// movable选择的straw
-const targetStraws: Array<strawText | strawImage | strawShape> = reactive([]);
+//  moveable所有的straw
+const targetStraws: Array<Straw> = reactive([]);
 
-const selectedStraw: Ref<strawText | strawImage | strawShape | null> = ref(null);
+// 选中的straw
+const selectedStraw: Ref<Straw | null> = ref(null);
 
-function setSelectedStraw(obj: strawText | strawImage | strawShape) {
-  selectedStraw.value = obj;
+function setSelectedStraw(straw: Straw | null) {
+  selectedStraw.value = straw;
 }
 
-function addStraw(straw: strawText | strawImage | strawShape) {
+function addStraw(straw: Straw) {
   straws.push(straw);
 }
 
 function removeStraw(id: string) {
-  const index = straws.findIndex((straw: strawText | strawImage | strawShape) => straw.id === id);
+  const index = straws.findIndex((straw: Straw) => straw.id === id);
   if (index !== -1) {
     straws.splice(index, 1);
   }
 }
 
 function editStraw(id: string, editData: object) {
-  const straw = straws.find((straw) => straw.id === id);
-  Object.assign(straw, editData);
+  const index = straws.findIndex((straw) => straw.id === id);
+  if (index > -1) {
+    Object.assign(straws[index], editData);
+  }
 }
 
-function setTargetStraws(straw: strawText | strawImage | strawShape, isSingleSelect: boolean) {
-  if (isSingleSelect) {
-    targetStraws.splice(0, targetStraws.length - 1);
-  }
-  targetStraws.push(straw);
+function setTargetStraws(targets: Array<Straw>) {
+  targetStraws.splice(0, targetStraws.length);
+  targetStraws.push(...targets);
 }
 
 function useStraws() {
@@ -42,8 +43,9 @@ function useStraws() {
     addStraw,
     removeStraw,
     editStraw,
+    targetStraws: targetStraws,
     setTargetStraws,
-    selectedStraw,
+    selectedStraw: selectedStraw,
     setSelectedStraw,
   };
 }
