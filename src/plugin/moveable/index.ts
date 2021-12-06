@@ -1,14 +1,15 @@
 import Moveable from 'moveable';
-import useStraws from '@/state/straws';
+import useStraws from '@/store/straws';
 import { GROUP_RENDER_DIRECTIONS, DEFAULT_RENDER_DIRECTIONS } from '@/constants/moveable';
-import { isGroupStraw } from '@/utils/helper';
-
+import { isGroupStraw, n2px } from '@/utils/helper';
+import { isEqualArray, difference, uniq } from '@/utils/tool';
+import { MoveableEvent } from '@/interface/moveable';
 export let moveable: any = null;
 
-let renderEditor: any = null;
+let strawRender: any = null;
 
-export function setRenderEditorInstance(vm: any) {
-  renderEditor = vm;
+export function setStrawRenderRef(vm: any) {
+  strawRender = vm;
 }
 
 export function initMoveable(el: HTMLElement) {
@@ -21,12 +22,17 @@ export function initMoveable(el: HTMLElement) {
   });
 
   moveable.on('drag', onDrag);
+  moveable.on('dragEnd', onDragEnd);
 }
 
-function getTargetVM(target0: HTMLElement) {
+export function getTargetVM(target0: HTMLElement) {
   const id = target0.getAttribute('data-id') as string;
-  const vm = renderEditor.$refs[id];
-  console.log('vm', vm);
+  const vm = strawRender.$refs[id];
+  return vm;
+}
+
+export function getTargetVMById(id: string) {
+  const vm = strawRender.$refs[id];
   return vm;
 }
 
@@ -37,11 +43,11 @@ export function updateMoveableState() {
 
   const target0Straw = straws.find((straw) => straw.id === target0.dataset.id);
 
-  const isUpdateState = target0Straw ? !target0Straw.locked : false;
+  const flag = target0Straw ? !target0Straw.locked : false;
 
-  moveable.draggable = isUpdateState;
-  moveable.resizable = isUpdateState;
-  moveable.rotatable = isUpdateState;
+  moveable.draggable = flag;
+  moveable.resizable = flag;
+  moveable.rotatable = flag;
 
   if (target0Straw) {
     if (moveable.target.length > 1) {
@@ -67,45 +73,64 @@ export function updateMoveableState() {
 
 // TODO: 分离 select 和 target
 export function setMoveableTarget(target: HTMLElement[] | null) {
-  // const oldTarget = moveable.target;
-  // if (isEqualArray(target, oldTarget)) return;
+  const oldTarget = moveable.target;
+  const { straws } = useStraws();
+
+  if (isEqualArray(target as Array<any>, oldTarget)) return;
+
   if (!target || !target.length) return;
 
   moveable.target = target;
-  // targetStraws = target
+
+  // targetStraws = target;
   //   .map(el => straws.find(straw => straw.id === el.dataset.id))
   //   .filter(s => s);
   // selectedStraw = null;
 
-  // const leaveTargets = difference(oldTarget, target);
+  const leaveTargets = difference(oldTarget, target);
 
-  // leaveTargets.forEach(target => {
-  //   const vm = getTargetVM(target);
-  //   vm?.strawHooks?.moveable?.onLeaveTarget?.();
-  // });
+  leaveTargets.forEach((target) => {
+    const vm = getTargetVM(target);
+    vm?.strawHooks?.moveable?.onLeaveTarget?.();
+  });
 
-  // const enterTargets = difference(target, oldTarget);
-  // enterTargets.forEach(target => {
-  //   const vm = getTargetVM(target);
-  //   vm?.strawHooks?.moveable?.onEnterTarget?.();
-  // });
+  const enterTargets = difference(target, oldTarget);
+  enterTargets.forEach((target) => {
+    const vm = getTargetVM(target);
+    vm?.strawHooks?.moveable?.onEnterTarget?.();
+  });
 
-  // const mergeTargets = uniq([...target, ...oldTarget]);
-  // mergeTargets.forEach(target => {
-  //   const vm = getTargetVM(target);
-  //   if (vm.strawHooks?.moveable?.onChangeTarget) {
-  //     vm.strawHooks.moveable.onChangeTarget();
-  //   }
-  // });
+  const mergeTargets = uniq([...target, ...oldTarget]);
 
-  // straws.forEach(straw => {
-  //   const vm = getTargetVMById(straw.id);
-  //   vm?.strawHooks?.moveable?.onChangeTarget?.();
-  // });
+  mergeTargets.forEach((target) => {
+    const vm = getTargetVM(target);
+    if (vm.strawHooks?.moveable?.onChangeTarget) {
+      vm.strawHooks.moveable.onChangeTarget();
+    }
+  });
+
+  straws.forEach((straw) => {
+    const vm = getTargetVMById(straw.id);
+    vm?.strawHooks?.moveable?.onChangeTarget?.();
+  });
 
   updateMoveableState();
 }
 
-function onDrag() {
-  console.log('cahufa');
+function onDrag(event: MoveableEvent) {
+  const { target, top, left } = event;
+  target.style.top = n2px(top);
+  target.style.left = n2px(left);
+
+  const { editStraw } = useStraws();
+
+  target.dataset.id && editStraw(target.dataset.id, { top, left });
+
+  const targetVM = getTargetVM(target);
+  targetVM?.strawHooks?.moveable?.onDrag?.(event);
+}
+
+function onDragEnd(event: MoveableEvent) {
+  const targetVM = getTargetVM(event.target);
+  targetVM?.strawHooks?.moveable?.onDragEnd?.(event);
 }

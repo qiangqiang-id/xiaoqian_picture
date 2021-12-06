@@ -13,9 +13,9 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import useBackground from '@/state/background';
+import useBackground from '@/store/background';
 import StrawElement from './StrawElement.vue';
-import useStraws from '@/state/straws';
+import useStraws from '@/store/straws';
 
 export default defineComponent({
   name: 'StrawsRender',

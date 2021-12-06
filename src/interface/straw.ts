@@ -1,10 +1,14 @@
-export interface strawText {
+export interface PublicProp {
   id: string;
   type: string;
+  locked: boolean;
   left: number;
   top: number;
   width: number;
   height: number;
+}
+
+export interface strawText extends PublicProp {
   text: string;
   richText: string;
   fontSize: number;
@@ -17,7 +21,6 @@ export interface strawText {
   color: string;
   textDecoration: string;
   fontFamily?: string;
-  locked: boolean;
   writingMode?: string;
   stroke?: Array<Stroke>;
   shadow?: Array<Shadow>;
@@ -80,12 +83,7 @@ export interface MultiTextStyle {
   styleLength: Array<number>; // [1, 2]
 }
 
-export interface strawImage {
-  id: string;
-  top: number;
-  left: number;
-  width: number;
-  height: number;
+export interface strawImage extends PublicProp {
   src: string;
   opacity: number;
   format: string;
@@ -99,4 +97,20 @@ export interface ImageDatas {
   left: number;
   width: number;
   height: number;
+}
+
+export interface strawShape extends PublicProp {
+  src: string;
+  fill: string;
+  strokeColor: string;
+  strokeWidth: number;
+  x: number;
+  y: number;
+  rx: number;
+  ry: number;
+  opacity: number;
+  strokeType: string;
+  strokeDasharray: string;
+  strokeLength: number;
+  strokeSpacing: number;
 }

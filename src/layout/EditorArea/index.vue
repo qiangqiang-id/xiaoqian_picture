@@ -5,16 +5,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, getCurrentInstance, onMounted } from 'vue';
+import { defineComponent, computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import StrawsRender from './StrawRender.vue';
-import useTemplate from '@/state/template';
-import { lookUpTopStrawElement, isBackgroundElement } from '@/utils/helper';
+import useTemplate from '@/store/template';
 import {
-  setRenderEditorInstance,
+  lookUpTopStrawElement,
+  isBackgroundElement,
+  lookUpParentStrawElement,
+  findStrawById,
+} from '@/utils/helper';
+import {
+  setStrawRenderRef,
   setMoveableTarget,
   moveable,
   initMoveable,
+  getTargetVMById,
 } from '@/plugin/moveable';
+import { strawImage, strawText, strawShape } from '@/interface/straw';
+import useStraws from '@/store/straws';
 
 export default defineComponent({
   name: 'EditorArea',
@@ -25,20 +33,25 @@ export default defineComponent({
 
   setup() {
     const { width, height, overflow } = useTemplate();
+    const { straws } = useStraws();
 
-    const vm = getCurrentInstance();
-    setRenderEditorInstance(vm);
+    const strawRenderRef = ref(null);
 
     onMounted(() => {
+      setStrawRenderRef(strawRenderRef.value);
       const el = <HTMLElement>document.getElementById('editor-area');
       initMoveable(el);
+    });
+
+    onBeforeUnmount(() => {
+      moveable.destroy();
     });
 
     let mousedownEvent: MouseEvent | null = null;
     let mousedownTarget: HTMLElement[] | null = null;
     let mousedownAndMoved = false;
-
-    const strawRenderRef = ref(null);
+    let selectedStraw: strawImage | strawText | strawShape | null = null;
+    // let targetStraws: Array<strawImage | strawText | strawShape> = [];
 
     const editorAreaStyle = computed(() => {
       return {
@@ -48,6 +61,35 @@ export default defineComponent({
       };
     });
 
+    const getSelectStraw = (event: MouseEvent): strawImage | strawText | strawShape | null => {
+      if (event.target && isBackgroundElement(event.target as HTMLElement)) return selectedStraw;
+      // if (withCtrlOrShiftKey(event)) return null;
+
+      const el = lookUpParentStrawElement(event?.target as HTMLElement);
+      const id = el.dataset.id;
+      const straw = id && findStrawById(straws, id);
+      // if (!straw?.pid) return null;
+      return straw ? straw : null;
+    };
+
+    const setSelectStraw = (straw: strawImage | strawText | strawShape | null) => {
+      const oldStraw = selectedStraw;
+
+      if (oldStraw === straw) return;
+
+      selectedStraw = straw;
+
+      if (oldStraw) {
+        const vm = getTargetVMById(oldStraw.id);
+        vm?.strawHooks?.moveable?.onLeaveSelected?.();
+      }
+
+      if (straw) {
+        const vm = getTargetVMById(straw.id);
+        vm?.strawHooks?.moveable?.onEnterSelected?.();
+      }
+    };
+
     const mousemove = () => {
       mousedownAndMoved = true;
 
@@ -55,14 +97,12 @@ export default defineComponent({
 
       // if (isBackgroundElement(target0) || isLockElement(target0)) return;
 
-      console.log('mousedownTarget', mousedownTarget);
-
       setMoveableTarget(mousedownTarget);
 
       moveable.dragStart(mousedownEvent);
     };
 
-    const mouseup = () => {
+    const mouseup = (event: MouseEvent) => {
       document.removeEventListener('mousemove', mousemove);
       document.removeEventListener('mouseup', mouseup);
 
@@ -70,7 +110,7 @@ export default defineComponent({
         mousedownAndMoved = false;
       } else {
         setMoveableTarget(mousedownTarget);
-        // setSelectStraw(getSelectStraw(event));
+        setSelectStraw(getSelectStraw(event));
       }
 
       mousedownEvent = null;
@@ -84,7 +124,7 @@ export default defineComponent({
       if (isBackgroundElement(event.target as HTMLElement)) {
         return [];
       }
-      console.log('target', target);
+
       return [target];
     };
 

@@ -51,3 +51,11 @@ export const getUploadImageWidthAndHeight = (
     image.onerror = reject;
   });
 };
+
+export const uniq = (a: Array<any>) => a.filter((item, idx, arr) => arr.indexOf(item) === idx);
+
+// 是否是相同的数组
+export const isEqualArray = (a: Array<any>, b: Array<any>): boolean =>
+  a.length === b.length && uniq([...a, ...b]).length === a.length;
+
+export const difference = (a: Array<any>, b: Array<any>) => a.filter((item) => !b.includes(item));

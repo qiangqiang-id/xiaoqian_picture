@@ -1,4 +1,5 @@
-import { strawImage, strawText } from '@/interface/straw';
+import { strawImage, strawText, strawShape } from '@/interface/straw';
+
 export const toStrawStyle = (straw: Record<string, any>) => {
   const style = {
     width: n2px(straw.width),
@@ -15,16 +16,17 @@ export const toStrawStyle = (straw: Record<string, any>) => {
  */
 export const toRawType = (v: number) => toString.call(v).slice(8, -1);
 
-export const n2px = (n: number) => {
+export const n2px = (n: number): string => {
   if (toRawType(n) === 'Number') {
     return `${n}px`;
   }
-  return n;
+  return n + '';
 };
 
 export const isStrawElement = (el: HTMLElement | null) => el?.classList.contains('straw');
 
-export const isGroupStraw = (straw: strawImage | strawText | undefined) => straw?.type === 'group';
+export const isGroupStraw = (straw: strawImage | strawText | strawShape | undefined) =>
+  straw?.type === 'group';
 
 export const isBackgroundElement = (el: HTMLElement | null) =>
   el?.classList.contains('straw-background');
@@ -41,7 +43,6 @@ export const lookUpParentStrawElement = (el: HTMLElement) => {
 
 //  兼容组元素
 export const lookUpTopStrawElement = (el: HTMLElement): HTMLElement => {
-  console.log('el', el);
   el = lookUpParentStrawElement(el);
 
   // if (isInGroupElement(el) && el.parentElement) {
@@ -49,4 +50,19 @@ export const lookUpTopStrawElement = (el: HTMLElement): HTMLElement => {
   // }
 
   return el;
+};
+
+export const findStrawById = (straws: Array<strawImage | strawText | strawShape>, id: String) => {
+  if (!id) return null;
+
+  const targetStraw = straws.find((straw) => straw.id === id);
+  if (targetStraw) return targetStraw;
+
+  // 这里是查找组的
+  // for (let i = 0; i < straws.length; i += 1) {
+  //   if (straws[i].straws) {
+  //     targetStraw = findStrawById(straws[i].straws, id);
+  //     if (targetStraw) return targetStraw;
+  //   }
+  // }
 };

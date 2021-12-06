@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import SelectFile from '@/components/select-file/index.vue';
-import useBackground from '@/state/background';
+import useBackground from '@/store/background';
 import { fileToBase64 } from '@/utils/tool';
 
 import { colorList, fileType } from './options';
@@ -50,7 +50,7 @@ export default defineComponent({
     }
 
     function setBackgroundColor(item: string) {
-      setBackgroundInfo({ color: item, image: '' });
+      setBackgroundInfo({ color: item, image: '', opacity: 1 });
     }
 
     return {

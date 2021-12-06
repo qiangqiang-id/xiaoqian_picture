@@ -1,7 +1,7 @@
 <template>
   <div class="panel-image-container">
     <div @click="handleAddShape(item)" class="item" v-for="item in shapeList" :key="item.name">
-      <img :src="item.url" alt="" />
+      <img :src="item.src" alt="" />
     </div>
   </div>
 </template>
@@ -9,6 +9,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { shapeList, Shape } from './options';
+import useStraws from '@/store/straws';
+import { genRandomCode } from '@/utils/tool';
 
 export default defineComponent({
   name: 'Shape',
@@ -16,8 +18,30 @@ export default defineComponent({
   components: {},
 
   setup() {
+    const { addStraw } = useStraws();
     function handleAddShape(item: Shape) {
-      console.log(item);
+      addStraw({
+        id: genRandomCode(),
+        type: 'Shape',
+        locked: false,
+        top: 10,
+        left: 20,
+        width: 100,
+        height: 100,
+        src: item.src,
+        fill: item.fill,
+        strokeColor: item.strokeColor,
+        strokeWidth: item.strokeWidth,
+        x: item.x,
+        y: item.y,
+        rx: item.rx,
+        ry: item.ry,
+        opacity: item.opacity,
+        strokeType: item.strokeType,
+        strokeDasharray: '',
+        strokeLength: item.strokeLength,
+        strokeSpacing: item.strokeSpacing,
+      });
     }
     return { shapeList, handleAddShape };
   },

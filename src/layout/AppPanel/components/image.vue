@@ -7,13 +7,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, getCurrentInstance } from 'vue';
+import { defineComponent, ref, reactive } from 'vue';
 import SelectFile from '@/components/select-file/index.vue';
 import { fileType } from './options';
-import useStraws from '@/state/straws';
+import useStraws from '@/store/straws';
 import { strawImage } from '@/interface/straw';
 import { genRandomCode, getUploadImageWidthAndHeight, fileToBase64 } from '@/utils/tool';
-import useTemplate from '@/state/template';
+import useTemplate from '@/store/template';
 
 const imageWithTemplateRate = 0.3;
 
@@ -53,7 +53,7 @@ export default defineComponent({
     }
 
     function addImage() {
-      selectFileRef.value?.select?.();
+      selectFileRef.value?.select();
     }
 
     async function handleInput(file: File) {
@@ -83,10 +83,8 @@ export default defineComponent({
       addStraw(imageData);
     }
 
-    const vm = getCurrentInstance();
     function handleClick() {
-      // setTemplateInfo({ width: 400, height: 50 });
-      console.log('vm', vm?.ctx.$refs['selectFileRef']);
+      setTemplateInfo({ width: 400, height: 50 });
     }
 
     return {

@@ -56,7 +56,7 @@ export const textList: Text[] = [
 export interface Shape {
   type: string;
   name: string;
-  url: string;
+  src: string;
   width: number;
   height: number;
   fill: string;
@@ -76,7 +76,7 @@ export const shapeList: Shape[] = [
   {
     type: 'shape',
     name: 'round-rect',
-    url: RoundRect,
+    src: RoundRect,
     width: 300,
     height: 300,
     fill: 'rgba(0, 0, 0, 1)',
@@ -94,7 +94,7 @@ export const shapeList: Shape[] = [
   {
     type: 'shape',
     name: 'rect',
-    url: Round,
+    src: Round,
     width: 300,
     height: 150,
     fill: 'rgba(0, 0, 0, 1)',

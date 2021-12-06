@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref } from 'vue';
 export default defineComponent({
-  name: "SelectFile",
+  name: 'SelectFile',
 
   props: {
     accept: {
@@ -19,7 +19,7 @@ export default defineComponent({
 
     function handelInput(e: Event): void {
       const file = (e.target as HTMLInputElement).files?.[0];
-      emit("inputFile", file);
+      emit('inputFile', file);
     }
 
     function select() {

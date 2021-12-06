@@ -8,9 +8,9 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
-import { Text, textList } from './options';
+import { textList, Text } from './options';
 import { defaultTextComponent } from '@/plugin/font';
-import useStraws from '@/state/straws';
+import useStraws from '@/store/straws';
 import { genRandomCode } from '@/utils/tool';
 
 export default defineComponent({
