@@ -1,6 +1,9 @@
-:root {
-  --red: red;
-  --black: #333;
-  --white: white;
-  --color-primary: #5b53ff;
-}
+
+  $--red: red;
+  $--black: #333;
+  $--white: white;
+  $--color-primary: #5b53ff;
+  $--border-color-base:#DCDFE6;
+  $--input-hover-border:#5b53ff;
+  $--color-text-placeholder:#5b53ff
+

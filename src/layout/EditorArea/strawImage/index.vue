@@ -16,7 +16,9 @@ export default defineComponent({
       default: () => {},
     },
   },
-  setup() {},
+  setup(props, content) {
+    console.log(props, content);
+  },
 });
 </script>
 

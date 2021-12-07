@@ -92,7 +92,6 @@ export default defineComponent({
 
     const handleMousemove = () => {
       mousedownAndMoved = true;
-
       // const [target0] = mousedownTarget;
 
       // if (isBackgroundElement(target0) || isLockElement(target0)) return;
@@ -117,14 +116,22 @@ export default defineComponent({
     };
 
     const getMoveableTarget = (event: MouseEvent) => {
-      const target = lookUpTopStrawElement(event.target as HTMLElement);
+      // const currentTarget = moveable.target;
+      // let newMoveableTarget = [...currentTarget];
+      const targetEl = lookUpTopStrawElement(event.target as HTMLElement);
       // TODO: 还需要做判断，是否是打组
 
       if (isBackgroundElement(event.target as HTMLElement)) {
-        return [];
+        return [event.target as HTMLElement];
       }
 
-      return [target];
+      // const [currentTarget0] = currentTarget;
+      // console.log(currentTarget0);
+
+      // if (isBackgroundElement(event.target as HTMLElement)) return currentTarget;
+      // if (isBackgroundElement(currentTarget0) && targetEl) return [targetEl];
+
+      return [targetEl];
     };
 
     const handleMouseDownLeft = (event: MouseEvent) => {

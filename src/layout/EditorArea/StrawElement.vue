@@ -1,10 +1,10 @@
 <template>
   <div class="straw" :data-id="straw.id">
-    <component :is="straw.type" :straw="straw" v-bind="$attrs" class="straw-main" />
+    <component ref="strawRef" :is="straw.type" :straw="straw" v-bind="$attrs" class="straw-main" />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import { toStrawStyle } from '@/utils/helper';
 import Text from './strawText/index.vue';
 import Image from './strawImage/index.vue';
@@ -27,12 +27,15 @@ export default defineComponent({
   },
 
   setup(props) {
+    const strawRef = ref(null);
     onMounted(() => {
-      const el = <HTMLImageElement>document.querySelector(`[data-id=${props.straw.id}]`);
+      const el = <HTMLElement>document.querySelector(`[data-id=${props.straw.id}]`);
       if (!el) return;
       Object.assign(el.style, toStrawStyle(props.straw));
     });
-    return {};
+    return {
+      strawRef,
+    };
   },
 });
 </script>

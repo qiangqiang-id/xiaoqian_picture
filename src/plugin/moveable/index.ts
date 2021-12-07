@@ -5,12 +5,13 @@ import {
   DEFAULT_RENDER_DIRECTIONS,
   DIRECTIONS_ENUM,
 } from '@/constants/moveable';
-import { isGroupStraw, n2px } from '@/utils/helper';
+import { isGroupStraw, n2px, isBackgroundElement } from '@/utils/helper';
 import { isEqualArray, difference, uniq, sleep } from '@/utils/tool';
 import { Straw } from '@/interface/straw';
 
 export let moveable: any = null;
 let strawRender: any = null;
+
 const { straws, setSelectedStraw, setTargetStraws, editStraw } = useStraws();
 
 export function setStrawRenderRef(vm: any) {
@@ -43,7 +44,6 @@ export async function updateMoveableState() {
     // 背景 | 其它 -> 开启点击穿透
     moveable.passDragArea = true;
   }
-
   const className = [];
   if (target0Straw?.locked) className.push('locked');
   if (isGroupStraw(target0Straw)) className.push('group');
@@ -84,23 +84,20 @@ export async function setMoveableTarget(target: HTMLElement[] | null) {
   const { straws } = useStraws();
 
   if (isEqualArray(target as Array<any>, oldTarget)) return;
-
   if (!target || !target.length) return;
 
   moveable.target = target;
-
+  // moveable 异步更新了target
   await sleep();
 
   const list: Array<Straw | undefined> = target
     .map((el) => straws.find((straw) => straw.id === el.dataset.id))
     .filter((s) => s);
   const targets = list ? list : [];
-
   setTargetStraws(targets as Array<Straw>);
   setSelectedStraw(null);
 
   const leaveTargets = difference(oldTarget, target);
-
   leaveTargets.forEach((target) => {
     const vm = getTargetVM(target);
     vm?.strawHooks?.moveable?.onLeaveTarget?.();
@@ -113,8 +110,8 @@ export async function setMoveableTarget(target: HTMLElement[] | null) {
   });
 
   const mergeTargets = uniq([...target, ...oldTarget]);
-
   mergeTargets.forEach((target) => {
+    if (isBackgroundElement(target)) return;
     const vm = getTargetVM(target);
     if (vm.strawHooks?.moveable?.onChangeTarget) {
       vm.strawHooks.moveable.onChangeTarget();
@@ -133,9 +130,7 @@ function onDrag(event: OnDrag) {
   const { target, top, left } = event;
   target.style.top = n2px(top);
   target.style.left = n2px(left);
-
   target.dataset.id && editStraw(target.dataset.id, { top, left });
-
   const targetVM = getTargetVM(target as HTMLElement);
   targetVM?.strawHooks?.moveable?.onDrag?.(event);
 }
@@ -161,6 +156,9 @@ function onResizeStart(event: OnResizeStart) {
     DIRECTIONS_ENUM[direction.join()],
   );
 
+  // TODO: 触发钩子
+  console.log(targetVM);
+
   targetVM?.strawHooks?.moveable?.onResizeStart?.(event);
 }
 
@@ -177,7 +175,6 @@ function onResize(event: OnResize) {
   const { target, width, height, drag, datas } = event;
 
   datas.scale = [width / datas.startWidth, height / datas.startHeight];
-
   target.style.width = n2px(width);
   target.style.height = n2px(height);
 
@@ -193,7 +190,6 @@ function onResize(event: OnResize) {
   // }
 
   datas.targetVM?.strawHooks?.moveable?.onResize?.(event);
-
   onDrag(drag);
 }
 
@@ -225,7 +221,6 @@ function onResizeEnd(event: OnResizeEnd) {
     // }
   });
   // };
-
   // if (datas.isGroup) {
   //   target.firstElementChild.style.transform = '';
   //   target.firstElementChild.style.transformOrigin = '';

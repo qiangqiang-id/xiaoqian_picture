@@ -3,10 +3,8 @@ import { Straw } from '@/interface/straw';
 
 // 模板中所有的straw
 const straws: Array<Straw> = reactive([]);
-
 //  moveable所有的straw
 const targetStraws: Array<Straw> = reactive([]);
-
 // 选中的straw
 const selectedStraw: Ref<Straw | null> = ref(null);
 
