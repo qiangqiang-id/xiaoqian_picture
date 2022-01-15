@@ -5,14 +5,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
-  name: "SvgIcon",
+  name: 'SvgIcon',
   props: {
     prefix: {
       type: String,
-      default: "icon",
+      default: 'icon',
     },
     name: {
       type: String,
@@ -20,7 +20,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: "currentColor",
+      default: 'currentColor',
     },
   },
   setup(props) {

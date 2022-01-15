@@ -157,7 +157,7 @@ function onResizeStart(event: OnResizeStart) {
   );
 
   // TODO: 触发钩子
-  console.log(targetVM);
+  console.log(targetVM.strawRef);
 
   targetVM?.strawHooks?.moveable?.onResizeStart?.(event);
 }

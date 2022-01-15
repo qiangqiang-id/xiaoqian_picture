@@ -2,7 +2,7 @@
   <ControlPanelHeade title="图片" />
 
   <div class="body">
-    <div class="w-full ui-button bar" @click="uploadImg">
+    <div class="repalse-btn ui-button" @click="uploadImg">
       <svg-icon
         class="svg-placeholder-picture"
         name="placeholder-picture"
@@ -53,5 +53,9 @@ export default defineComponent({
 .svg-placeholder-picture {
   width: 18px;
   height: 18px;
+}
+
+.repalse-btn {
+  height: 40px;
 }
 </style>

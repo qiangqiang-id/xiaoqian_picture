@@ -1,9 +1,10 @@
 <template>
   <div class="control-container">
     <component :is="controlComponent" />
-  </div>
-  <div class="tools-bar">
-    <BarOpacity :model-value="0.2" @input="handleInput" />
+
+    <div class="tools-bar">
+      <BarOpacity :model-value="0.2" @input="handleInput" />
+    </div>
   </div>
 </template>
 
@@ -31,6 +32,7 @@ export default defineComponent({
   components: {
     BarOpacity,
   },
+
   setup() {
     const { targetStraws } = useStraws();
     const controlComponent = computed(() => {
@@ -59,24 +61,18 @@ export default defineComponent({
 @import '@/style/var.scss';
 .control-container {
   width: 280px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  background-color: #fff;
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+  // bottom: 0;
+  // z-index: 1;
+  // background-color: #fff;
 
-  ::v-deep {
-    .body {
-      padding: 16px 24px 0;
-
-      .bar {
-        margin-top: 12px;
-      }
-    }
+  :deep(.body) {
+    padding: 16px 24px 0;
 
     .bar {
-      height: 40px;
+      margin-top: 12px;
     }
 
     .label {
@@ -107,7 +103,6 @@ export default defineComponent({
         display: none;
       }
     }
-
     .ui-button--plain {
       &:hover,
       &.active {

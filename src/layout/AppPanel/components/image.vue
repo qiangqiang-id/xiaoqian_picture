@@ -2,7 +2,6 @@
   <div class="panel-image-container">
     <el-button type="primary" @click="addImage">添加图片</el-button>
     <SelectFile ref="selectFileRef" :accept="fileType" @inputFile="handleInput" />
-    <el-button @click="handleClick">change template</el-button>
   </div>
 </template>
 
@@ -25,7 +24,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { width: templateWidth, height: tempalteHeight, setTemplateInfo } = useTemplate();
+    const { width: templateWidth, height: tempalteHeight } = useTemplate();
     const { addStraw } = useStraws();
     const selectFileRef: any = ref(null);
 
@@ -83,16 +82,11 @@ export default defineComponent({
       addStraw(imageData);
     }
 
-    function handleClick() {
-      setTemplateInfo({ width: 400, height: 50 });
-    }
-
     return {
       selectFileRef,
       addImage,
       fileType,
       handleInput,
-      handleClick,
     };
   },
 });

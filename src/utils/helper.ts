@@ -1,4 +1,4 @@
-import { strawImage, strawText, strawShape } from '@/interface/straw';
+import { Straw } from '@/interface/straw';
 
 export const toStrawStyle = (straw: Record<string, any>) => {
   const style = {
@@ -25,8 +25,7 @@ export const n2px = (n: number): string => {
 
 export const isStrawElement = (el: HTMLElement | null) => el?.classList.contains('straw');
 
-export const isGroupStraw = (straw: strawImage | strawText | strawShape | undefined) =>
-  straw?.type === 'group';
+export const isGroupStraw = (straw: Straw | undefined) => straw?.type === 'group';
 
 export const isBackgroundElement = (el: HTMLElement | null) =>
   el?.classList.contains('straw-background');
@@ -52,7 +51,7 @@ export const lookUpTopStrawElement = (el: HTMLElement): HTMLElement => {
   return el;
 };
 
-export const findStrawById = (straws: Array<strawImage | strawText | strawShape>, id: String) => {
+export const findStrawById = (straws: Array<Straw>, id: String) => {
   if (!id) return null;
 
   const targetStraw = straws.find((straw) => straw.id === id);
