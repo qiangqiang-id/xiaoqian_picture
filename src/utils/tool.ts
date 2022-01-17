@@ -1,3 +1,5 @@
+import FileSaver from 'file-saver';
+
 export const blobToBase64 = (blob: Blob): Promise<string> => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
@@ -64,4 +66,12 @@ export const sleep = (daley = 0): Promise<undefined> => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(undefined), daley);
   });
+};
+
+export const handleSingleDownload = async (
+  blobUrl: string,
+  format?: string,
+  name?: string,
+): Promise<void> => {
+  FileSaver.saveAs(blobUrl, `${name ? name : assistForGenRandomCode()}.${format ? format : 'png'}`);
 };

@@ -1,19 +1,37 @@
 <template>
   <el-header>
     <el-button @click="handlePreview">预览</el-button>
+
+    <PreviewDialog v-model:visible="previewDialogVisible" :previewUrl="previewUrl" />
   </el-header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import generateImage from '../plugin/generate-image';
+import PreviewDialog from './Dialog/preview-dialog.vue';
 export default defineComponent({
+  name: 'AppHeader',
+
+  components: {
+    PreviewDialog,
+  },
+
   setup() {
-    function handlePreview() {
-      generateImage();
+    const previewDialogVisible = ref(false);
+
+    const previewUrl = ref('');
+
+    async function handlePreview() {
+      const url = await generateImage();
+      previewUrl.value = url;
+      previewDialogVisible.value = true;
     }
 
     return {
+      previewDialogVisible,
+      previewUrl,
+
       handlePreview,
     };
   },

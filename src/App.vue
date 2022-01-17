@@ -58,4 +58,8 @@ body {
 .el-container {
   height: 100%;
 }
+
+.moveable-control-box {
+  z-index: 2000 !important;
+}
 </style>
