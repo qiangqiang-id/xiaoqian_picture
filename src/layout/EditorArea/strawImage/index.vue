@@ -1,6 +1,14 @@
 <template>
   <div class="straw__image">
-    <img class="straw__image-content" :src="straw.src" alt="" />
+    <img
+      class="straw__image-content"
+      :src="straw.src"
+      alt=""
+      :style="{
+        width: straw.width + 'px',
+        height: straw.height + 'px',
+      }"
+    />
   </div>
 </template>
 
@@ -25,7 +33,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .straw__image {
   height: 100%;
-  position: relative;
   overflow: hidden;
   .straw__image-content {
     display: block;
