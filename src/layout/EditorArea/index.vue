@@ -153,7 +153,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-#editor-area {
-  position: relative;
-}
+@import './index.scss';
 </style>

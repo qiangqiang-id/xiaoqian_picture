@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import AppHeader from './layout/appHeader.vue';
+import AppHeader from './layout/AppHeader.vue';
 import AppMain from './layout/AppMain.vue';
 import AppPanel from './layout/AppPanel/index.vue';
 import AppControl from './layout/AppControl/index.vue';
@@ -30,7 +30,7 @@ export default defineComponent({
 
   setup() {
     window.addEventListener('beforeunload', (event) => {
-      const confirmationMessage = '\o/';
+      const confirmationMessage = 'o/';
       (event || window.event).returnValue = confirmationMessage; //Gecko + IE
       return confirmationMessage; //Webkit, Safari, Chrome
     });

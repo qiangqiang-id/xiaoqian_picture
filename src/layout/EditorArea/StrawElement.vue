@@ -41,7 +41,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.straw {
-  position: absolute;
-}
+@import './index.scss';
 </style>

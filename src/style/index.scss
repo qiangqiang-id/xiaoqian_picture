@@ -1,10 +1,8 @@
-@import "./global.scss";
+@import './global.scss';
 
-@import "./var.scss";
+@import './var.scss';
 
-@import "./mosaic-background.scss";
-
-
+@import './mosaic-background.scss';
 
 .bar {
   display: flex;
@@ -21,7 +19,6 @@
     height: 24px;
   }
 }
-
 
 .ui-button {
   display: flex;
