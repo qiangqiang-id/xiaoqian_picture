@@ -4,6 +4,8 @@
 
     <div class="tools-bar">
       <BarOpacity :model-value="0.2" @input="handleInput" />
+
+      <BarTool />
     </div>
   </div>
 </template>
@@ -14,8 +16,9 @@ import { defineComponent } from 'vue';
 import StrawImageControl from '../EditorArea/strawImage/strawImageControl.vue';
 import strawShapeControl from '../EditorArea/strawShape/strawShapeControl.vue';
 import strawTextControl from '../EditorArea/strawText/strawTextControl.vue';
-import canvasControl from '../EditorArea/canvas/canvasControl.vue';
 import BarOpacity from '@/layout/EditorArea/components/BarOpacity.vue';
+import BarTool from '@/layout/EditorArea/components/BarTool.vue';
+import canvasControl from '../EditorArea/canvas/canvasControl.vue';
 import useStraws from '@/store/straws';
 
 const ENUM_CONTROL_PANEL = {
@@ -31,6 +34,7 @@ export default defineComponent({
 
   components: {
     BarOpacity,
+    BarTool,
   },
 
   setup() {
@@ -103,6 +107,7 @@ export default defineComponent({
         display: none;
       }
     }
+
     .ui-button--plain {
       &:hover,
       &.active {

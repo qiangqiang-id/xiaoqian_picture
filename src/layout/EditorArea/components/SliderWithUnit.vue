@@ -4,9 +4,9 @@
       <span class="slider-label">{{ label }}</span>
     </slot>
 
-    <el-slider :max="max" :min="min" v-bind="$attrs" />
+    <el-slider :max="max" :min="min" v-bind="$attrs" size="small" />
 
-    <el-input-number controls-position="right" :min="min" :max="max" v-bind="$attrs" />
+    <el-input-number :controls="false" :min="min" :max="max" v-bind="$attrs" />
   </label>
 </template>
 
@@ -58,19 +58,32 @@ export default defineComponent({
 </style>
 
 <style lang="scss">
+$mainColor: #5b53ff;
 .slider-with-unit {
   .el-input-number {
-    width: 60px;
+    width: 50px;
 
-    .el-input-number__decrease,
-    .el-input-number__increase {
-      width: 16px;
+    .el-input__inner {
+      border: none;
+      padding: 0 !important;
     }
+  }
 
-    .el-input {
-      .el-input__inner {
-        padding-left: 0;
-        padding-right: 16px;
+  .el-slider {
+    width: 100px;
+    .el-slider__runway {
+      height: 2px;
+      .el-slider__bar {
+        height: 2px;
+        background-color: $mainColor;
+      }
+      .el-slider__button {
+        width: 14px;
+        height: 14px;
+        border-color: $mainColor;
+      }
+      .el-slider__button-wrapper {
+        top: -17px;
       }
     }
   }

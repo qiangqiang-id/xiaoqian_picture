@@ -4,7 +4,11 @@
       :model-value="parseInt(`${modelValue * 100}`)"
       :max="100"
       @input="handleInput($event)"
-    />
+    >
+      <template #label>
+        <svg-icon class="opacity-svg-icon" name="opacity" />
+      </template>
+    </SliderWithUnit>
   </div>
 </template>
 
@@ -39,10 +43,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.opacity {
-  .svg-opacity {
-    font-size: 32px;
-    margin-left: 8px;
-  }
+.opacity-svg-icon {
+  width: 32px;
+  height: 32px;
+  margin-left: 5px;
 }
 </style>
