@@ -32,7 +32,7 @@ export const fileToBase64 = (file: File) => {
  * @returns {string}
  */
 const codes: any = {};
-const assistForGenRandomCode = (): string =>
+export const assistForGenRandomCode = (): string =>
   Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
 export const genRandomCode = () => {
   let code = assistForGenRandomCode();

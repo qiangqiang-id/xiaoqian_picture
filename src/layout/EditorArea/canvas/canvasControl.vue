@@ -16,7 +16,7 @@
     </div>
 
     <!-- <div class="bar"> -->
-    <!-- <ColorPicker :value="color ? color : ''" @active-change="changeColor" /> -->
+    <ColorPicker :value="color ? color : ''" @active-change="changeColor" />
     <!-- </div> -->
   </div>
 </template>
@@ -24,7 +24,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ControlPanelHeade from '../components/ControlPanelHeade.vue';
-// import ColorPicker from '../components/ColorPicker.vue';
+import ColorPicker from '../components/ColorPicker.vue';
 import useTemplate from '@/store/template';
 import useBackground from '@/store/background';
 
@@ -33,7 +33,7 @@ export default defineComponent({
 
   components: {
     ControlPanelHeade,
-    // ColorPicker,
+    ColorPicker,
   },
 
   setup() {
