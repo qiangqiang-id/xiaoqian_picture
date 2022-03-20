@@ -1,0 +1,53 @@
+@import './global.scss';
+
+@import './var.scss';
+
+@import './mosaic-background.scss';
+
+.bar {
+  display: flex;
+  border: 1px solid $--border-color-base;
+  border-radius: 5px;
+  background: #fff;
+
+  &:hover {
+    border-color: $--input-hover-border;
+  }
+
+  .ui-button {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.ui-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  border-radius: 4px;
+  border: 1px solid $--border-color-base;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:not(.disabled):hover,
+  &:not(.disabled).active {
+    color: $--color-primary;
+    border-color: $--input-hover-border;
+  }
+
+  &.disabled {
+    color: $--color-text-placeholder;
+    cursor: not-allowed;
+  }
+
+  &--plain {
+    border-color: transparent;
+
+    &:not(.disabled):hover,
+    &:not(.disabled).active {
+      color: $--color-primary;
+      border-color: transparent;
+    }
+  }
+}
