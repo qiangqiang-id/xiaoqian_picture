@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { defineProps, getCurrentInstance } from 'vue';
+import { getCurrentInstance } from 'vue';
 import Sucker from './Sucker.vue';
 // import { predefineColors } from '../constants';
 
@@ -65,10 +65,8 @@ function handleChangeColor() {
   border: 1px dashed rgba(18, 19, 63, 0.3);
 }
 
-::v-deep {
-  .el-color-picker__trigger {
-    display: none;
-  }
+:deep(.el-color-picker__trigger) {
+  display: none;
 }
 </style>
 

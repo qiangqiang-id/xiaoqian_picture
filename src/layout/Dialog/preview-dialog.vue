@@ -18,8 +18,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
-
 import { handleSingleDownload } from '@/utils/tool';
 
 const props = defineProps({

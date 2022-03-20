@@ -3,17 +3,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 import { n2px } from '@/utils/helper';
-
-// export default defineComponent({
-// name: 'Text',
 
 const props = defineProps({
   straw: { type: Object, default: () => ({}) },
 });
 
-// setup(props) {
 const rootStyle = computed(() => {
   return {
     color: props.straw.color,
