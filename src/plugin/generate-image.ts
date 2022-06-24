@@ -4,20 +4,16 @@ import { useTemplate } from '@/store/template';
 
 const svgCssString = compression(strawAreaCss);
 
-const canvas = <HTMLCanvasElement>document.createElement('canvas');
-const ctx = <CanvasRenderingContext2D>canvas.getContext('2d');
-canvas.width = 400;
-canvas.height = 700;
-
 function compression(str: string) {
   return str.replace(/\n+/g, '').replace(/\/\*.+?\*\//g, '');
 }
 
 export default async function generateImage() {
-  const editorArea = <HTMLElement>document.getElementById('editor-area')?.cloneNode(true);
+  const editorArea = <HTMLElement>(
+    document.querySelector('.straws-render-container')?.cloneNode(true)
+  );
 
   const svg = domToSvg(editorArea);
-  console.log(svg);
   return await svgToImageBlobUrl(svg);
 }
 
@@ -38,15 +34,12 @@ function domToSvg(elSkyRendererClone: HTMLElement) {
 async function svgToImageBlobUrl(svg: string) {
   const templateInfo = useTemplate();
 
-  // document.body.appendChild(canvas);
-
-  // Object.assign(canvas.style, {
-  //   position: 'absolute',
-  //   top: 0,
-  //   left: 0,
-  // });
-
   const image = await makeImage(svg);
+  const canvas = <HTMLCanvasElement>document.createElement('canvas');
+  const ctx = <CanvasRenderingContext2D>canvas.getContext('2d');
+  canvas.width = templateInfo.width;
+  canvas.height = templateInfo.height;
+
   ctx?.drawImage(image, 0, 0, templateInfo.width, templateInfo.height);
 
   return new Promise((resolve, reject) => {

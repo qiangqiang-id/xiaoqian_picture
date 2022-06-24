@@ -1,6 +1,8 @@
 <template>
   <div id="editor-area" class="mosaic-background" :style="editorAreaStyle">
-    <div class="edtir-background" :style="backgroundStyle" />
+    <div class="straws-render-container">
+      <div class="editor-background" :style="backgroundStyle" />
+    </div>
   </div>
 </template>
 
@@ -28,8 +30,5 @@ const backgroundStyle = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-.edtir-background {
-  width: 100%;
-  height: 100%;
-}
+@import url('./index.scss');
 </style>
