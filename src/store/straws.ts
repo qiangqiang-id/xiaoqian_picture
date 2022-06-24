@@ -1,5 +1,5 @@
 import { reactive, ref, Ref } from 'vue';
-import { Straw } from '@/interface/straw';
+import { Straw } from '@/types/straw';
 
 // 模板中所有的straw
 const straws: Array<Straw> = reactive([]);

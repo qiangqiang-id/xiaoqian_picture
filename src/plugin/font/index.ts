@@ -1,5 +1,5 @@
-import { strawText } from '@/interface/straw';
-import { FontClass } from '@/interface/font';
+import { strawText } from '@/types/straw';
+import { FontClass } from '@/types/font';
 
 export const defaultFontFamily: FontClass[] = [
   {

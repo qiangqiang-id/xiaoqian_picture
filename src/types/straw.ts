@@ -1,4 +1,5 @@
-export interface PublicProp {
+// 基础属性
+export interface Base {
   id: string;
   type: string;
   locked: boolean;
@@ -8,7 +9,7 @@ export interface PublicProp {
   height: number;
 }
 
-export interface strawText extends PublicProp {
+export interface strawText extends Base {
   text: string;
   richText: string;
   fontSize: number;
@@ -83,7 +84,7 @@ export interface MultiTextStyle {
   styleLength: Array<number>; // [1, 2]
 }
 
-export interface strawImage extends PublicProp {
+export interface strawImage extends Base {
   src: string;
   opacity: number;
   format: string;
@@ -99,7 +100,7 @@ export interface ImageDatas {
   height: number;
 }
 
-export interface strawShape extends PublicProp {
+export interface strawShape extends Base {
   src: string;
   fill: string;
   strokeColor: string;

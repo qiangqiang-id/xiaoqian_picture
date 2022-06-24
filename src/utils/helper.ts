@@ -1,4 +1,4 @@
-import { Straw } from '@/interface/straw';
+import { Straw } from '@/types/straw';
 
 export const toStrawStyle = (straw: Record<string, any>) => {
   const style = {
