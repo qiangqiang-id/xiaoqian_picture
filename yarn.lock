@@ -20,28 +20,6 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@daybrush/utils@^1.0.0", "@daybrush/utils@^1.1.1", "@daybrush/utils@^1.3.1", "@daybrush/utils@^1.4.0", "@daybrush/utils@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.nlark.com/@daybrush/utils/download/@daybrush/utils-1.6.0.tgz#0dfd2c360764f63380df4ec0d44e176c69f7bbc3"
-  integrity sha1-Df0sNgdk9jOA307A1E4XbGn3u8M=
-
-"@egjs/agent@^2.2.1":
-  version "2.3.0"
-  resolved "https://registry.npm.taobao.org/@egjs/agent/download/@egjs/agent-2.3.0.tgz#5a18150ce46a2ba1d237a847db44b0a234bd96f0"
-  integrity sha1-WhgVDORqK6HSN6hH20SwojS9lvA=
-
-"@egjs/children-differ@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.npm.taobao.org/@egjs/children-differ/download/@egjs/children-differ-1.0.1.tgz#5465fa80671d5ca3564ebe912f48b05b3e8a14fd"
-  integrity sha1-VGX6gGcdXKNWTr6RL0iwWz6KFP0=
-  dependencies:
-    "@egjs/list-differ" "^1.0.0"
-
-"@egjs/list-differ@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/@egjs/list-differ/download/@egjs/list-differ-1.0.0.tgz#2277aff52e3e4bd9318d5c30ffc3ba3b6216f05e"
-  integrity sha1-Inev9S4+S9kxjVww/8O6O2IW8F4=
-
 "@element-plus/icons@^0.0.11":
   version "0.0.11"
   resolved "https://registry.nlark.com/@element-plus/icons/download/@element-plus/icons-0.0.11.tgz#9b187c002774548b911850d17fa5fc2f9a515f57"
@@ -120,27 +98,6 @@
   version "2.10.2"
   resolved "https://registry.npmmirror.com/@popperjs/core/download/@popperjs/core-2.10.2.tgz#0798c03351f0dea1a5a4cabddf26a55a7cbee590"
   integrity sha1-B5jAM1Hw3qGlpMq93yalWny+5ZA=
-
-"@scena/dragscroll@^1.0.1":
-  version "1.0.2"
-  resolved "https://registry.nlark.com/@scena/dragscroll/download/@scena/dragscroll-1.0.2.tgz#6fc6565898a9c2e4a90588b9ba5a0d93ba77aa31"
-  integrity sha1-b8ZWWJipwuSpBYi5uloNk7p3qjE=
-  dependencies:
-    "@scena/event-emitter" "^1.0.2"
-
-"@scena/event-emitter@^1.0.2", "@scena/event-emitter@^1.0.3":
-  version "1.0.5"
-  resolved "https://registry.nlark.com/@scena/event-emitter/download/@scena/event-emitter-1.0.5.tgz#047e3acef93cf238d7ce3a8cc5a12ec6bd9c3bb1"
-  integrity sha1-BH46zvk88jjXzjqMxaEuxr2cO7E=
-  dependencies:
-    "@daybrush/utils" "^1.1.1"
-
-"@scena/matrix@^1.0.0", "@scena/matrix@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npm.taobao.org/@scena/matrix/download/@scena/matrix-1.1.1.tgz#5297f71825c72e2c2c8f802f924f482ed200c43c"
-  integrity sha1-Upf3GCXHLiwsj4Avkk9ILtIAxDw=
-  dependencies:
-    "@daybrush/utils" "^1.4.0"
 
 "@trysound/sax@0.2.0":
   version "0.2.0"
@@ -339,6 +296,11 @@
   dependencies:
     "@vue/compiler-dom" "3.2.20"
     "@vue/shared" "3.2.20"
+
+"@vue/devtools-api@^6.1.4":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.1.4.tgz#b4aec2f4b4599e11ba774a50c67fa378c9824e53"
+  integrity sha512-IiA0SvDrJEgXvVxjNkHPFfDx6SXw0b/TUkqMcDZWNg9fnCAHbTpoo59YfJ9QLFkwa3raau5vSlRVzMSLDnfdtQ==
 
 "@vue/reactivity@3.2.20", "@vue/reactivity@^3.2.19":
   version "3.2.20"
@@ -760,22 +722,6 @@ css-select@^4.1.3:
     domhandler "^4.2.0"
     domutils "^2.6.0"
     nth-check "^2.0.0"
-
-css-styled@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.nlark.com/css-styled/download/css-styled-1.0.0.tgz#6fe10a98f95c24fa66cb1c41e11e7c00bcedac13"
-  integrity sha1-b+EKmPlcJPpmyxxB4R58ALztrBM=
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
-    string-hash "^1.1.3"
-
-css-to-mat@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npm.taobao.org/css-to-mat/download/css-to-mat-1.0.3.tgz#5c0d9b572b68b57fa8ba0b1a4c572c18ce3b2b60"
-  integrity sha1-XA2bVytotX+ougsaTFcsGM47K2A=
-  dependencies:
-    "@daybrush/utils" "^1.3.1"
-    "@scena/matrix" "^1.0.0"
 
 css-tree@^1.1.2, css-tree@^1.1.3:
   version "1.1.3"
@@ -1400,16 +1346,6 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-framework-utils@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.npm.taobao.org/framework-utils/download/framework-utils-0.3.4.tgz#450e63cca680c2a78047691a32ed9f51a748e3a1"
-  integrity sha1-RQ5jzKaAwqeAR2kaMu2fUadI46E=
-
-framework-utils@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/framework-utils/download/framework-utils-1.1.0.tgz#a3b528bce838dfd623148847dc92371b09d0da2d"
-  integrity sha1-o7UovOg439YjFIhH3JI3GwnQ2i0=
-
 fs-extra@^10.0.0:
   version "10.0.0"
   resolved "https://registry.nlark.com/fs-extra/download/fs-extra-10.0.0.tgz#9ff61b655dde53fb34a82df84bb214ce802e17c1"
@@ -1438,14 +1374,6 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.nlark.com/functional-red-black-tree/download/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
-
-gesto@^1.2.1:
-  version "1.4.0"
-  resolved "https://registry.nlark.com/gesto/download/gesto-1.4.0.tgz#e63952cda67d3210c83303ad635d9868eef8a01d"
-  integrity sha1-5jlSzaZ9MhDIMwOtY12YaO74oB0=
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
-    "@scena/event-emitter" "^1.0.2"
 
 get-intrinsic@^1.0.2:
   version "1.1.1"
@@ -2022,14 +1950,6 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
-moveable@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.nlark.com/moveable/download/moveable-0.26.0.tgz#7ae053290189bccd4740faf4829eb9f36f3a4023"
-  integrity sha1-euBTKQGJvM1HQPr0gp658286QCM=
-  dependencies:
-    "@scena/event-emitter" "^1.0.3"
-    react-compat-moveable "~0.14.0"
-
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmmirror.com/ms/download/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -2136,13 +2056,6 @@ optionator@^0.9.1:
     type-check "^0.4.0"
     word-wrap "^1.2.3"
 
-overlap-area@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/overlap-area/download/overlap-area-1.0.0.tgz#d44db45b810ec05c4c2c9f430ab60c9473f2101b"
-  integrity sha1-1E20W4EOwFxMLJ9DCrYMlHPyEBs=
-  dependencies:
-    "@daybrush/utils" "^1.3.1"
-
 parent-module@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmmirror.com/parent-module/download/parent-module-1.0.1.tgz#691d2709e78c79fae3a156622452d00762caaaa2"
@@ -2184,6 +2097,14 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3:
   version "2.3.0"
   resolved "https://registry.nlark.com/picomatch/download/picomatch-2.3.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpicomatch%2Fdownload%2Fpicomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
   integrity sha1-8fBh3o9qS/AiiS4tEoI0+5gwKXI=
+
+pinia@^2.0.14:
+  version "2.0.14"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.14.tgz#0837898c20291ebac982bbfca95c8d3c6099925f"
+  integrity sha512-0nPuZR4TetT/WcLN+feMSjWJku3SQU7dBbXC6uw+R6FLQJCsg+/0pzXyD82T1FmAYe0lsx+jnEDQ1BLgkRKlxA==
+  dependencies:
+    "@vue/devtools-api" "^6.1.4"
+    vue-demi "*"
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
@@ -2403,60 +2324,6 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.nlark.com/queue-microtask/download/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha1-SSkii7xyTfrEPg77BYyve2z7YkM=
-
-react-compat-css-styled@^1.0.5:
-  version "1.0.6"
-  resolved "https://registry.npm.taobao.org/react-compat-css-styled/download/react-compat-css-styled-1.0.6.tgz#876f00752bc006ee66800f9135852af477331e5f"
-  integrity sha1-h28AdSvABu5mgA+RNYUq9HczHl8=
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
-    css-styled "^1.0.0"
-    framework-utils "^0.3.4"
-    react-css-styled "^1.0.2"
-    react-simple-compat "^1.1.0"
-
-react-compat-moveable@~0.14.0:
-  version "0.14.0"
-  resolved "https://registry.nlark.com/react-compat-moveable/download/react-compat-moveable-0.14.0.tgz#cfb1ef54a712209bc4dcb677f0115df9be996a4b"
-  integrity sha1-z7HvVKcSIJvE3LZ38BFd+b6Zaks=
-  dependencies:
-    "@daybrush/utils" "^1.6.0"
-    "@scena/dragscroll" "^1.0.1"
-    react-compat-css-styled "^1.0.5"
-    react-moveable "~0.29.0"
-    react-simple-compat "^1.2.1"
-
-react-css-styled@^1.0.1, react-css-styled@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.nlark.com/react-css-styled/download/react-css-styled-1.0.2.tgz#95b2f34dea852aa63cbfe2af0ca322b19899f404"
-  integrity sha1-lbLzTeqFKqY8v+KvDKMisZiZ9AQ=
-  dependencies:
-    css-styled "^1.0.0"
-    framework-utils "^0.3.4"
-
-react-moveable@~0.29.0:
-  version "0.29.0"
-  resolved "https://registry.nlark.com/react-moveable/download/react-moveable-0.29.0.tgz#851ceae979a46dc103a2420672c1e443e513c8ec"
-  integrity sha1-hRzq6XmkbcEDokIGcsHkQ+UTyOw=
-  dependencies:
-    "@daybrush/utils" "^1.6.0"
-    "@egjs/agent" "^2.2.1"
-    "@egjs/children-differ" "^1.0.1"
-    "@scena/dragscroll" "^1.0.1"
-    "@scena/matrix" "^1.1.1"
-    css-to-mat "^1.0.3"
-    framework-utils "^1.1.0"
-    gesto "^1.2.1"
-    overlap-area "^1.0.0"
-    react-css-styled "^1.0.1"
-
-react-simple-compat@^1.1.0, react-simple-compat@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.nlark.com/react-simple-compat/download/react-simple-compat-1.2.1.tgz#d5bd74440f51b9c4a421dc941be039561cb6e08e"
-  integrity sha1-1b10RA9RucSkIdyUG+A5Vhy24I4=
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
-    "@egjs/list-differ" "^1.0.0"
 
 readable-stream@^3.1.1:
   version "3.6.0"
@@ -2709,11 +2576,6 @@ strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/strict-uri-encode/download/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
   integrity sha1-J5siXfHVgrH1TmWt3UNS4Y+qBxM=
-
-string-hash@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.nlark.com/string-hash/download/string-hash-1.1.3.tgz?cache=0&sync_timestamp=1618847134046&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fstring-hash%2Fdownload%2Fstring-hash-1.1.3.tgz#e8aafc0ac1855b4666929ed7dd1275df5d6c811b"
-  integrity sha1-6Kr8CsGFW0Zmkp7X3RJ1311sgRs=
 
 string_decoder@^1.1.1:
   version "1.3.0"

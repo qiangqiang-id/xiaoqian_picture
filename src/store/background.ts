@@ -1,19 +1,23 @@
-import { reactive, toRefs, readonly } from 'vue';
+import { defineStore } from 'pinia';
 
-const backgroundInfo = reactive({
-  color: '',
-  image: '',
-  opacity: 1,
+interface Data {
+  color: string;
+  image: string;
+  opacity: number;
+}
+
+export const useBackground = defineStore('background', {
+  state: () => {
+    return {
+      color: '',
+      image: '',
+      opacity: 1,
+    };
+  },
+
+  actions: {
+    setProp(data: Data) {
+      Object.assign(this, data);
+    },
+  },
 });
-
-function setBackgroundInfo(info: object) {
-  Object.assign(backgroundInfo, info);
-}
-
-function useBackground() {
-  return {
-    ...toRefs(readonly(backgroundInfo)),
-    setBackgroundInfo,
-  };
-}
-export default useBackground;

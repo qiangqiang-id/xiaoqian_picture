@@ -1,11 +1,14 @@
-import useTemplate from '@/store/template';
+// import useTemplate from '@/store/template';
 import strawAreaCss from '@/layout/EditorArea/index.scss';
 
-const { width, height, scale } = useTemplate();
+// const { width, height, scale } = useTemplate();
+const width = 400;
+const height = 400;
+const scale = 1;
 const canvas = <HTMLCanvasElement>document.createElement('canvas');
 const ctx = <CanvasRenderingContext2D>canvas.getContext('2d');
-canvas.width = width.value;
-canvas.height = height.value;
+canvas.width = width;
+canvas.height = height;
 const svgCssString = compression(strawAreaCss);
 
 function compression(str: string) {
@@ -24,10 +27,8 @@ function domToImage(elSkyRendererClone: HTMLElement) {
   const xmls = new XMLSerializer();
   const contentHtml = xmls.serializeToString(elSkyRendererClone);
 
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${
-    width.value * scale.value
-  }' height='${
-    height.value * scale.value
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${width * scale}' height='${
+    height * scale
   }'><style>${svgCssString}</style><foreignObject x='0' y='0' width='100%' height='100%'>${contentHtml}</foreignObject></svg>`;
 
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
@@ -35,7 +36,7 @@ function domToImage(elSkyRendererClone: HTMLElement) {
 
 async function svgToImageBlobUrl(svg: string) {
   const image = await makeImage(svg);
-  ctx?.drawImage(image, 0, 0, width.value, height.value);
+  ctx?.drawImage(image, 0, 0, width, height);
 
   return new Promise((resolve, reject) => {
     canvas.toBlob(function (blob: Blob | null) {

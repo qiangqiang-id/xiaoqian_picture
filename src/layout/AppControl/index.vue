@@ -11,51 +11,51 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue';
+// import { computed } from 'vue';
 import { defineComponent } from 'vue';
-import StrawImageControl from '../EditorArea/strawImage/strawImageControl.vue';
-import strawShapeControl from '../EditorArea/strawShape/strawShapeControl.vue';
-import strawTextControl from '../EditorArea/strawText/strawTextControl.vue';
-import BarOpacity from '@/layout/EditorArea/components/BarOpacity.vue';
-import BarTool from '@/layout/EditorArea/components/BarTool.vue';
-import canvasControl from '../EditorArea/canvas/canvasControl.vue';
-import useStraws from '@/store/straws';
+// import StrawImageControl from '../EditorArea/strawImage/strawImageControl.vue';
+// import strawShapeControl from '../EditorArea/strawShape/strawShapeControl.vue';
+// import strawTextControl from '../EditorArea/strawText/strawTextControl.vue';
+// import BarOpacity from '@/layout/EditorArea/components/BarOpacity.vue';
+// import BarTool from '@/layout/EditorArea/components/BarTool.vue';
+// import canvasControl from '../EditorArea/canvas/canvasControl.vue';
+// import useStraws from '@/store/straws';
 
-const ENUM_CONTROL_PANEL = {
-  Text: strawTextControl,
-  Image: StrawImageControl,
-  Shape: strawShapeControl,
-};
+// const ENUM_CONTROL_PANEL = {
+//   Text: strawTextControl,
+//   Image: StrawImageControl,
+//   Shape: strawShapeControl,
+// };
 
-type Panel = 'Text' | 'Image' | 'Shape';
+// type Panel = 'Text' | 'Image' | 'Shape';
 
 export default defineComponent({
   name: 'AppControl',
 
   components: {
-    BarOpacity,
-    BarTool,
+    //   BarOpacity,
+    //   BarTool,
   },
 
   setup() {
-    const { targetStraws } = useStraws();
-    const controlComponent = computed(() => {
-      if (targetStraws.length === 1) {
-        const [target0] = targetStraws;
+    // const { targetStraws } = useStraws();
+    // const controlComponent = computed(() => {
+    //   if (targetStraws.length === 1) {
+    //     const [target0] = targetStraws;
 
-        const panel = target0.type as Panel;
-        return ENUM_CONTROL_PANEL[panel];
-      }
-      return canvasControl;
-    });
+    //     const panel = target0.type as Panel;
+    //     return ENUM_CONTROL_PANEL[panel];
+    //   }
+    //   return canvasControl;
+    // });
 
-    function handleInput() {
-      console.log('chufa');
-    }
+    // function handleInput() {
+    //   console.log('chufa');
+    // }
 
     return {
-      controlComponent,
-      handleInput,
+      // controlComponent,
+      // handleInput,
     };
   },
 });

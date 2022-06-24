@@ -10,7 +10,6 @@
 import { defineComponent, reactive } from 'vue';
 import { textList, Text } from './options';
 import { defaultTextComponent } from '@/plugin/font';
-import useStraws from '@/store/straws';
 import { genRandomCode } from '@/utils/tool';
 
 export default defineComponent({
@@ -19,8 +18,6 @@ export default defineComponent({
   components: {},
 
   setup() {
-    const { addStraw } = useStraws();
-
     function handleAddText(item: Text) {
       const textData = {
         id: genRandomCode(),
@@ -36,7 +33,7 @@ export default defineComponent({
 
       const data = reactive({ ...defaultTextComponent, ...textData });
 
-      addStraw(data);
+      console.log(data);
     }
     return { textList, handleAddText };
   },

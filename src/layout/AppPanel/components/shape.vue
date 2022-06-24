@@ -9,8 +9,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { shapeList, Shape } from './options';
-import useStraws from '@/store/straws';
-import { genRandomCode } from '@/utils/tool';
+// import { genRandomCode } from '@/utils/tool';
 
 export default defineComponent({
   name: 'Shape',
@@ -18,30 +17,8 @@ export default defineComponent({
   components: {},
 
   setup() {
-    const { addStraw } = useStraws();
     function handleAddShape(item: Shape) {
-      addStraw({
-        id: genRandomCode(),
-        type: 'Shape',
-        locked: false,
-        top: 10,
-        left: 20,
-        width: item.width,
-        height: item.height,
-        src: item.src,
-        fill: item.fill,
-        strokeColor: item.strokeColor,
-        strokeWidth: item.strokeWidth,
-        x: item.x,
-        y: item.y,
-        rx: item.rx,
-        ry: item.ry,
-        opacity: item.opacity,
-        strokeType: item.strokeType,
-        strokeDasharray: '',
-        strokeLength: item.strokeLength,
-        strokeSpacing: item.strokeSpacing,
-      });
+      console.log(item);
     }
     return { shapeList, handleAddShape };
   },

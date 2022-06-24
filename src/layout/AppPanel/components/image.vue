@@ -9,12 +9,8 @@
 import { defineComponent, ref, reactive } from 'vue';
 import SelectFile from '@/components/select-file/index.vue';
 import { fileType } from './options';
-import useStraws from '@/store/straws';
 import { strawImage } from '@/interface/straw';
-import { genRandomCode, getUploadImageWidthAndHeight, fileToBase64 } from '@/utils/tool';
-import useTemplate from '@/store/template';
-
-const imageWithTemplateRate = 0.3;
+import { genRandomCode, fileToBase64 } from '@/utils/tool';
 
 export default defineComponent({
   name: 'Image',
@@ -24,29 +20,26 @@ export default defineComponent({
   },
 
   setup() {
-    const { width: templateWidth, height: tempalteHeight } = useTemplate();
-    const { addStraw } = useStraws();
     const selectFileRef: any = ref(null);
 
-    async function transfromImageWidthAndHeight(
-      base64: string,
-    ): Promise<{ width: number; height: number }> {
-      const { width, height } = await getUploadImageWidthAndHeight(base64);
-      const targetWidth = templateWidth.value * imageWithTemplateRate;
-      const targetHeight = tempalteHeight.value * imageWithTemplateRate;
+    async function transfromImageWidthAndHeight(): Promise<{ width: number; height: number }> {
+      // base64: string,
+      // const { width, height } = await getUploadImageWidthAndHeight(base64);
+      // const targetWidth = templateWidth.value * imageWithTemplateRate;
+      // const targetHeight = tempalteHeight.value * imageWithTemplateRate;
       const result = {
         height: 0,
         width: 0,
       };
-      if (targetHeight > targetWidth) {
-        const rate = targetHeight / height;
-        result.height = targetHeight;
-        result.width = width * rate;
-      } else {
-        const rate = targetWidth / width;
-        result.height = height * rate;
-        result.width = targetWidth;
-      }
+      // if (targetHeight > targetWidth) {
+      //   const rate = targetHeight / height;
+      //   result.height = targetHeight;
+      //   result.width = width * rate;
+      // } else {
+      //   const rate = targetWidth / width;
+      //   result.height = height * rate;
+      //   result.width = targetWidth;
+      // }
 
       return result;
     }
@@ -78,8 +71,7 @@ export default defineComponent({
           height,
         },
       });
-
-      addStraw(imageData);
+      console.log(imageData);
     }
 
     return {
