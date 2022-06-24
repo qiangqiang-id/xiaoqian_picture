@@ -29,10 +29,14 @@ export default defineComponent({
   },
 
   setup() {
-    window.addEventListener('beforeunload', (event) => {
-      const confirmationMessage = 'o/';
-      (event || window.event).returnValue = confirmationMessage; //Gecko + IE
-      return confirmationMessage; //Webkit, Safari, Chrome
+    // window.addEventListener('beforeunload', (event) => {
+    //   console.log('chuga22222');
+    //   const confirmationMessage = 'o/';
+    //   (event || window.event).returnValue = confirmationMessage; //Gecko + IE
+    //   return confirmationMessage; //Webkit, Safari, Chrome
+    // });
+    window.addEventListener('unload', () => {
+      console.log('chuga22222');
     });
   },
 });
