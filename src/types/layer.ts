@@ -116,4 +116,4 @@ export interface strawShape extends Base {
   strokeSpacing: number;
 }
 
-export type Straw = strawImage | strawText | strawShape;
+export type Layer = strawImage | strawText | strawShape;

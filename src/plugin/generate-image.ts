@@ -1,42 +1,53 @@
 // import useTemplate from '@/store/template';
 import strawAreaCss from '@/layout/EditorArea/index.scss';
+import { useTemplate } from '@/store/template';
 
-// const { width, height, scale } = useTemplate();
-const width = 400;
-const height = 400;
-const scale = 1;
+const svgCssString = compression(strawAreaCss);
+
 const canvas = <HTMLCanvasElement>document.createElement('canvas');
 const ctx = <CanvasRenderingContext2D>canvas.getContext('2d');
-canvas.width = width;
-canvas.height = height;
-const svgCssString = compression(strawAreaCss);
+canvas.width = 400;
+canvas.height = 700;
 
 function compression(str: string) {
   return str.replace(/\n+/g, '').replace(/\/\*.+?\*\//g, '');
 }
 
 export default async function generateImage() {
-  const editorArea = <HTMLElement>(
-    document.querySelector('.straws-render-container')?.cloneNode(true)
-  );
-  const svg = domToImage(editorArea);
+  const editorArea = <HTMLElement>document.getElementById('editor-area')?.cloneNode(true);
+
+  const svg = domToSvg(editorArea);
+  console.log(svg);
   return await svgToImageBlobUrl(svg);
 }
 
-function domToImage(elSkyRendererClone: HTMLElement) {
+function domToSvg(elSkyRendererClone: HTMLElement) {
+  const templateInfo = useTemplate();
   const xmls = new XMLSerializer();
   const contentHtml = xmls.serializeToString(elSkyRendererClone);
 
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${width * scale}' height='${
-    height * scale
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${
+    templateInfo.width * templateInfo.scale
+  }' height='${
+    templateInfo.height * templateInfo.scale
   }'><style>${svgCssString}</style><foreignObject x='0' y='0' width='100%' height='100%'>${contentHtml}</foreignObject></svg>`;
 
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
 async function svgToImageBlobUrl(svg: string) {
+  const templateInfo = useTemplate();
+
+  // document.body.appendChild(canvas);
+
+  // Object.assign(canvas.style, {
+  //   position: 'absolute',
+  //   top: 0,
+  //   left: 0,
+  // });
+
   const image = await makeImage(svg);
-  ctx?.drawImage(image, 0, 0, width, height);
+  ctx?.drawImage(image, 0, 0, templateInfo.width, templateInfo.height);
 
   return new Promise((resolve, reject) => {
     canvas.toBlob(function (blob: Blob | null) {
