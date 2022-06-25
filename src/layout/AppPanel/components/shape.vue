@@ -9,16 +9,38 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { shapeList, Shape } from './options';
-// import { genRandomCode } from '@/utils/tool';
+import { genRandomCode } from '@/utils/tool';
+import { useLayer } from '@/store';
 
 export default defineComponent({
   name: 'Shape',
 
-  components: {},
-
   setup() {
+    const layerStore = useLayer();
+
     function handleAddShape(item: Shape) {
-      console.log(item);
+      layerStore.addLayer({
+        id: genRandomCode(),
+        type: 'Shape',
+        locked: false,
+        top: 10,
+        left: 20,
+        width: item.width,
+        height: item.height,
+        src: item.src,
+        fill: item.fill,
+        strokeColor: item.strokeColor,
+        strokeWidth: item.strokeWidth,
+        x: item.x,
+        y: item.y,
+        rx: item.rx,
+        ry: item.ry,
+        opacity: item.opacity,
+        strokeType: item.strokeType,
+        strokeDasharray: '',
+        strokeLength: item.strokeLength,
+        strokeSpacing: item.strokeSpacing,
+      });
     }
     return { shapeList, handleAddShape };
   },

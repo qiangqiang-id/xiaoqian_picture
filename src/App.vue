@@ -58,6 +58,7 @@ body {
 
 .el-container {
   height: 100%;
+  overflow: hidden;
 }
 
 .moveable-control-box {

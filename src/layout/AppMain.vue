@@ -23,5 +23,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  padding: 100px;
 }
 </style>

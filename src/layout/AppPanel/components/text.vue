@@ -11,6 +11,7 @@ import { defineComponent, reactive } from 'vue';
 import { textList, Text } from './options';
 import { defaultTextComponent } from '@/plugin/font';
 import { genRandomCode } from '@/utils/tool';
+import { useLayer } from '@/store/layer';
 
 export default defineComponent({
   name: 'Text',
@@ -18,6 +19,7 @@ export default defineComponent({
   components: {},
 
   setup() {
+    const layerStore = useLayer();
     function handleAddText(item: Text) {
       const textData = {
         id: genRandomCode(),
@@ -32,8 +34,7 @@ export default defineComponent({
       };
 
       const data = reactive({ ...defaultTextComponent, ...textData });
-
-      console.log(data);
+      layerStore.addLayer(data);
     }
     return { textList, handleAddText };
   },

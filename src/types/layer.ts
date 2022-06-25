@@ -9,7 +9,7 @@ export interface Base {
   height: number;
 }
 
-export interface strawText extends Base {
+export interface layerText extends Base {
   text: string;
   richText: string;
   fontSize: number;
@@ -84,7 +84,7 @@ export interface MultiTextStyle {
   styleLength: Array<number>; // [1, 2]
 }
 
-export interface strawImage extends Base {
+export interface layerImage extends Base {
   src: string;
   opacity: number;
   format: string;
@@ -100,7 +100,7 @@ export interface ImageDatas {
   height: number;
 }
 
-export interface strawShape extends Base {
+export interface layerShape extends Base {
   src: string;
   fill: string;
   strokeColor: string;
@@ -116,4 +116,4 @@ export interface strawShape extends Base {
   strokeSpacing: number;
 }
 
-export type Layer = strawImage | strawText | strawShape;
+export type Layer = layerImage | layerText | layerShape;

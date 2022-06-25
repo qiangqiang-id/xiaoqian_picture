@@ -2,23 +2,29 @@
   <div id="editor-area" class="mosaic-background" :style="editorAreaStyle">
     <div class="straws-render-container">
       <div class="editor-background" :style="backgroundStyle" />
+      <LayerItem v-for="item in layers" :key="item.id" :data="item" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useBackground } from '@/store/background';
-import { useTemplate } from '@/store/template';
+import { useBackground, useTemplate, useLayer } from '@/store';
+import LayerItem from './layerItem.vue';
 
 const backgroundStore = useBackground();
 const templateStore = useTemplate();
+const layerStore = useLayer();
 
 const editorAreaStyle = computed(() => {
   return {
     width: templateStore.width + 'px',
     height: templateStore.height + 'px',
   };
+});
+
+const layers = computed(() => {
+  return layerStore.layers;
 });
 
 const backgroundStyle = computed(() => {

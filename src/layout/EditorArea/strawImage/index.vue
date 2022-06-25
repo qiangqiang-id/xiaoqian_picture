@@ -2,11 +2,10 @@
   <div class="straw__image">
     <img
       class="straw__image-content"
-      :src="straw.src"
-      alt=""
+      :src="data.src"
       :style="{
-        width: straw.width + 'px',
-        height: straw.height + 'px',
+        width: data.width + 'px',
+        height: data.height + 'px',
       }"
     />
   </div>
@@ -19,13 +18,12 @@ export default defineComponent({
   name: 'Image',
 
   props: {
-    straw: {
+    data: {
       type: Object,
-      default: () => {},
     },
   },
   setup(props, content) {
-    console.log(props, content);
+    console.log(123123, props, content);
   },
 });
 </script>
