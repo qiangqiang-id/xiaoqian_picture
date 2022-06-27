@@ -73,14 +73,15 @@ export default defineComponent({
         src: base64,
         opacity: 1,
         format,
-        imageDatas: {
+        angle: 0,
+        mask: {
           top: 0,
           left: 0,
           width,
           height,
         },
       });
-      // console.log(imageData, layerStore.addLayer);
+
       layerStore.addLayer(imageData);
     }
 

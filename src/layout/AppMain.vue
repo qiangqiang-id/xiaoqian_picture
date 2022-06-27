@@ -7,12 +7,19 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import EditorArea from './EditorArea/index.vue';
+import { useLayer } from '@/store';
+import { testData } from './testData';
 
 export default defineComponent({
   name: 'AppMain',
 
   components: {
     EditorArea,
+  },
+
+  mounted() {
+    const layerStore = useLayer();
+    layerStore.addLayer(testData);
   },
 });
 </script>

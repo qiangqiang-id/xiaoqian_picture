@@ -1,0 +1,109 @@
+.point {
+  position: absolute;
+  display: block;
+  width: 12px;
+  height: 12px;
+  pointer-events: auto;
+  user-select: none;
+  background: transparent;
+  transition: opacity 0.2s;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    content: '';
+    background: #fff;
+    border: 1px solid #c3c9cf;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
+    transform: translate(-50%, -50%);
+  }
+}
+
+.leftTop {
+  top: 0;
+  left: 0;
+  z-index: 1;
+  cursor: nwse-resize;
+  transform: translate(-50%, -50%);
+}
+
+.rightTop {
+  top: 0;
+  right: 0;
+  z-index: 1;
+  cursor: nesw-resize;
+  transform: translate(50%, -50%);
+}
+
+.leftBottom {
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  cursor: nesw-resize;
+  transform: translate(-50%, 50%);
+}
+
+.rightBottom {
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  cursor: nwse-resize;
+  transform: translate(50%, 50%);
+}
+
+.topChunk {
+  top: -1px;
+  left: 50%;
+  cursor: ns-resize;
+  transform: translate(-50%, -50%);
+
+  &::before {
+    width: 16px;
+    height: 6px;
+    border-radius: 4px;
+  }
+}
+
+.rightChunk {
+  top: 50%;
+  right: -1px;
+  cursor: ew-resize;
+  transform: translate(50%, -50%);
+
+  &::before {
+    width: 6px;
+    height: 16px;
+    border-radius: 4px;
+  }
+}
+
+.bottomChunk {
+  bottom: -1px;
+  left: 50%;
+  cursor: ns-resize;
+  transform: translate(-50%, 50%);
+
+  &::before {
+    width: 16px;
+    height: 6px;
+    border-radius: 4px;
+  }
+}
+
+.leftChunk {
+  top: 50%;
+  left: -1px;
+  cursor: ew-resize;
+  transform: translate(-50%, -50%);
+
+  &::before {
+    width: 6px;
+    height: 16px;
+    border-radius: 4px;
+  }
+}

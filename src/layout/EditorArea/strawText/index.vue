@@ -13,6 +13,7 @@ const props = defineProps({
 
 const rootStyle = computed(() => {
   const data = props.data;
+  // console.log(1231231312, data.writingMode, data.letterSpacing);
   return {
     color: data.color,
     fontStyle: data.fontStyle,

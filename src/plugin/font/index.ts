@@ -1,4 +1,4 @@
-import { strawText } from '@/types/layer';
+import { layerText } from '@/types/layer';
 import { FontClass } from '@/types/font';
 
 export const defaultFontFamily: FontClass[] = [
@@ -12,7 +12,7 @@ export const defaultFontFamily: FontClass[] = [
   },
 ];
 
-export const defaultTextComponent: strawText = {
+export const defaultTextComponent: layerText = {
   id: '',
   type: 'Text',
   width: 300,
@@ -37,4 +37,5 @@ export const defaultTextComponent: strawText = {
   gradual: [],
   glow: [],
   locked: false,
+  angle: 0,
 };

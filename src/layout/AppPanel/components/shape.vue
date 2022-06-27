@@ -40,6 +40,7 @@ export default defineComponent({
         strokeDasharray: '',
         strokeLength: item.strokeLength,
         strokeSpacing: item.strokeSpacing,
+        angle: 0,
       });
     }
     return { shapeList, handleAddShape };

@@ -4,13 +4,22 @@
       <div class="editor-background" :style="backgroundStyle" />
       <LayerItem v-for="item in layers" :key="item.id" :data="item" />
     </div>
+
+    <editBox />
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  name: 'EditorArea',
+};
+</script>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useBackground, useTemplate, useLayer } from '@/store';
 import LayerItem from './layerItem.vue';
+import EditBox from './editBox/index.vue';
 
 const backgroundStore = useBackground();
 const templateStore = useTemplate();

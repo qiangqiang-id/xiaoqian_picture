@@ -1,5 +1,5 @@
 <template>
-  <div class="layer" :style="layerStyle">
+  <div class="layer" :id="props.data.id" :style="layerStyle" @mousedown="handleMousedown">
     <component :is="typeComponentMap[props.data.type]" :data="props.data" />
   </div>
 </template>
@@ -10,12 +10,15 @@ import { Layer } from '@/types/layer';
 import Text from './strawText/index.vue';
 import Image from './strawImage/index.vue';
 import Shape from './strawShape/index.vue';
+import { useLayer } from '@/store';
 
 const typeComponentMap = {
   Text,
   Image,
   Shape,
 };
+
+const layerStore = useLayer();
 
 const props = defineProps({
   data: {
@@ -24,11 +27,15 @@ const props = defineProps({
 });
 
 const layerStyle = computed(() => {
-  const { left, top } = props.data;
+  const { left, top, angle } = props.data;
   return {
-    transform: `translate(${left}px,${top}px)`,
+    transform: `translate(${left}px,${top}px) rotate(${angle}deg)`,
   };
 });
+
+const handleMousedown = () => {
+  layerStore.addSelectedLayers([props.data]);
+};
 </script>
 
 <style lang="scss" scoped>

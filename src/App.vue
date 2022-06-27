@@ -57,11 +57,6 @@ body {
 }
 
 .el-container {
-  height: 100%;
-  overflow: hidden;
-}
-
-.moveable-control-box {
-  z-index: 2000 !important;
+  height: calc(100% - 60px);
 }
 </style>

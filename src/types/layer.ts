@@ -7,6 +7,7 @@ export interface Base {
   top: number;
   width: number;
   height: number;
+  angle: number;
 }
 
 export interface layerText extends Base {
@@ -90,10 +91,10 @@ export interface layerImage extends Base {
   format: string;
   locked: boolean;
   type: string;
-  imageDatas: ImageDatas;
+  mask: Mask;
 }
 
-export interface ImageDatas {
+export interface Mask {
   top: number;
   left: number;
   width: number;
