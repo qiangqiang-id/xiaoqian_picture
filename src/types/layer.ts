@@ -94,6 +94,9 @@ export interface layerImage extends Base {
   mask: Mask;
 }
 
+/**
+ * 蒙层
+ */
 export interface Mask {
   top: number;
   left: number;
@@ -101,6 +104,9 @@ export interface Mask {
   height: number;
 }
 
+/**
+ * 图形
+ */
 export interface layerShape extends Base {
   src: string;
   fill: string;

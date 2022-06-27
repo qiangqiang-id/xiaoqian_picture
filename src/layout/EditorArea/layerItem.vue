@@ -11,6 +11,7 @@ import Text from './strawText/index.vue';
 import Image from './strawImage/index.vue';
 import Shape from './strawShape/index.vue';
 import { useLayer } from '@/store';
+import { dragAction } from '@/utils/drag';
 
 const typeComponentMap = {
   Text,
@@ -33,22 +34,18 @@ const layerStyle = computed(() => {
   };
 });
 
-const handleMousemove = (e: Event) => {
-  layerStore.uploadLayer({
-    id: props.data.id,
-    left: props.data.left + e.movementX,
-    top: props.data.top + e.movementY,
-  });
-};
-const handleMouesup = () => {
-  document.removeEventListener('mousemove', handleMousemove);
-  document.removeEventListener('mouseup', handleMouesup);
-};
-
-const handleMousedown = () => {
+const handleMousedown = (e: MouseEvent) => {
   layerStore.addSelectedLayer([props.data]);
-  document.addEventListener('mousemove', handleMousemove);
-  document.addEventListener('mouseup', handleMouesup);
+  dragAction(e, {
+    move: (e: MouseEvent) => {
+      const { left, top, id } = props.data;
+      layerStore.uploadLayer({
+        id,
+        left: left + e.movementX,
+        top: top + e.movementY,
+      });
+    },
+  });
 };
 </script>
 

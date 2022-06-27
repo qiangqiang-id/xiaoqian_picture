@@ -8,33 +8,33 @@
         :style="{ cursor: cursorStyle[item.cursorTypeIndex] }"
         @mousedown.stop="drawScale($event, item.position)"
       />
-
-      <!-- 旋转区域 -->
-      <div class="rotateArea" @mousedown.stop="dragRotate">
-        <img src="@/assets/images/icon_rotate.png" alt="rotateIcon" />
-      </div>
     </template>
 
+    <!-- 旋转区域 -->
+    <div class="rotateArea" @mousedown.stop="dragRotate">
+      <img src="@/assets/images/icon_rotate.png" alt="rotateIcon" />
+    </div>
+
     <!-- 旋转角度，预览信息-->
-    <div class="rotateTips" v-show="spinStatus" :style="tipsStyle">{{ previewAngle }}°</div>
+    <div class="rotateTips" v-show="spinStatus" :style="tipsStyle">
+      {{ Math.round(info.angle) }}°
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, defineProps, defineComponent, PropType, inject } from 'vue';
+import { computed, ref, defineProps, inject } from 'vue';
 import { POINT_LIST, INIT_ANGLE, ANGLE_CURSOR } from './constants';
-import { Layer } from '@/types/layer';
+import { useLayer } from '@/store';
+import { dragAction } from '@/utils/drag';
+import { RotateHandle } from '@/plugin/operation-handle/index';
 
-defineComponent({ name: 'ControlBox' });
+const layerStore = useLayer();
 
 const prop = defineProps({
   showPointList: {
     type: Array,
     default: () => [],
-  },
-
-  info: {
-    type: Object as PropType<Layer>,
   },
 });
 
@@ -42,7 +42,7 @@ const info = inject('info');
 
 const spinStatus = ref(false);
 
-const previewAngle = ref(0);
+const isEditing = ref(false);
 
 const controlBoxStyle = computed(() => {
   const { width, height, left, top, angle = 0 } = info.value;
@@ -91,18 +91,51 @@ const drawScale = () => {
   console.log('drawScale');
 };
 
-const dragRotate = () => {
-  console.log('dragRotate');
+const dragRotate = (e: MouseEvent) => {
+  let { angle, top, left, width, height, id } = info.value;
+  const renderBoxInfo = document.querySelector('.straws-render-container')?.getBoundingClientRect();
+
+  const initData = {
+    angle,
+    centerPoint: {
+      x: left + width / 2,
+      y: top + height / 2,
+    },
+    startMousePoint: {
+      x: e.clientX - renderBoxInfo.x,
+      y: e.clientY - renderBoxInfo.y,
+    },
+  };
+  const rotateHandle = new RotateHandle(initData);
+
+  dragAction(e, {
+    move: (e: MouseEvent) => {
+      spinStatus.value = true;
+      const mousePoint = {
+        x: e.clientX - renderBoxInfo.x,
+        y: e.clientY - renderBoxInfo.y,
+      };
+
+      const angle = rotateHandle.rotateHandler(mousePoint);
+      layerStore.uploadLayer({
+        id,
+        angle,
+      });
+    },
+    end: () => {
+      spinStatus.value = false;
+    },
+  });
 };
 </script>
 
 <style lang="scss" scoped>
 @import './pointStyle.scss';
+
 .control-box {
-  // position: absolute;
-  // top: 0;
-  // left: 0;
   outline: 2px solid #0f0;
+  cursor: move;
+  user-select: none;
 
   .rotateArea {
     position: absolute;
@@ -130,13 +163,15 @@ const dragRotate = () => {
 
   .rotateTips {
     position: absolute;
-    bottom: -30px;
+    bottom: -35px;
     left: 50%;
     width: 40px;
     height: 20px;
     line-height: 20px;
     text-align: center;
     background-color: #000;
+    color: #fff;
+    font-size: 12px;
   }
 }
 </style>

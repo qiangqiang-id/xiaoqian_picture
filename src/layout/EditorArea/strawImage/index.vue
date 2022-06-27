@@ -1,7 +1,7 @@
 <template>
-  <div class="straw__image">
+  <div class="layer-image">
     <img
-      class="straw__image-content"
+      class="layer-image-content"
       :src="data.src"
       :style="{
         width: data.width + 'px',
@@ -29,10 +29,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.straw__image {
+.layer-image {
   height: 100%;
   overflow: hidden;
-  .straw__image-content {
+
+  .layer-image-content {
     display: block;
     border: 0;
     width: 100%;

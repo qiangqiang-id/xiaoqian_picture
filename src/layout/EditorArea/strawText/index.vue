@@ -1,5 +1,5 @@
 <template>
-  <div :style="rootStyle">{{ data.text }}text</div>
+  <div class="layer-text" :style="rootStyle">{{ data.text }}</div>
 </template>
 
 <script lang="ts" setup>
@@ -34,3 +34,8 @@ const rootStyle = computed(() => {
   };
 });
 </script>
+
+<style lang="scss" scoped>
+.layer-text {
+}
+</style>
