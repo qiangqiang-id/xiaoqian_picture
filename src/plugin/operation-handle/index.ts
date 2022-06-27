@@ -1,2 +1,4 @@
-export { RotateHandle } from './rotateHandle';
-export { ScaleHandle } from './scaleHandle';
+import RotateHandle from './rotateHandle';
+import ScaleHandle from './scaleHandle';
+
+export { RotateHandle, ScaleHandle };

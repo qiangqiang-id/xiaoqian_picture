@@ -27,7 +27,8 @@ import { computed, ref, defineProps, inject } from 'vue';
 import { POINT_LIST, INIT_ANGLE, ANGLE_CURSOR } from './constants';
 import { useLayer } from '@/store';
 import { dragAction } from '@/utils/drag';
-import { RotateHandle } from '@/plugin/operation-handle/index';
+import { RotateHandle, ScaleHandle } from '@/plugin/operation-handle/index';
+import { PositionType } from '@/types/base';
 
 const layerStore = useLayer();
 
@@ -87,8 +88,26 @@ const tipsStyle = computed(() => {
   };
 });
 
-const drawScale = () => {
-  console.log('drawScale');
+const drawScale = (e: MouseEvent, type: PositionType) => {
+  const renderBoxInfo = document.querySelector('.straws-render-container')?.getBoundingClientRect();
+  const { top, left, width, height, angle, id } = info.value;
+  const scaleHandle = new ScaleHandle({ x: left, y: top, width, height, angle }, type);
+
+  dragAction(e, {
+    move: (e: MouseEvent) => {
+      const mousePoint = {
+        x: e.clientX - renderBoxInfo.x,
+        y: e.clientY - renderBoxInfo.y,
+      };
+
+      const data = scaleHandle.handleScale(mousePoint);
+
+      layerStore.uploadLayer({
+        id,
+        ...data,
+      });
+    },
+  });
 };
 
 const dragRotate = (e: MouseEvent) => {

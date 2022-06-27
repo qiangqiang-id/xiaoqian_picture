@@ -6,7 +6,7 @@ interface InitData {
   centerPoint: Coordinate; // 旋转中心点
 }
 
-export class RotateHandle {
+export default class RotateHandle {
   private initData: InitData;
   constructor(initData: InitData) {
     this.initData = initData;
