@@ -41,6 +41,7 @@ export const genRandomCode = () => {
   return code;
 };
 
+// 获取图片的宽高
 export const getUploadImageWidthAndHeight = (
   base64: string,
 ): Promise<{ width: number; height: number }> => {
@@ -68,6 +69,7 @@ export const sleep = (daley = 0): Promise<undefined> => {
   });
 };
 
+// 单个下载图片
 export const handleSingleDownload = async (
   blobUrl: string,
   format?: string,

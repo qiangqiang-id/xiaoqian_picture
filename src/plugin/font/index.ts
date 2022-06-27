@@ -15,8 +15,8 @@ export const defaultFontFamily: FontClass[] = [
 export const defaultTextComponent: layerText = {
   id: '',
   type: 'Text',
-  width: 300,
-  height: 125,
+  width: 100,
+  height: 16,
   top: 0,
   left: 0,
   fontSize: 14,

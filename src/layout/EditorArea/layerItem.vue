@@ -33,8 +33,22 @@ const layerStyle = computed(() => {
   };
 });
 
+const handleMousemove = (e: Event) => {
+  layerStore.uploadLayer({
+    id: props.data.id,
+    left: props.data.left + e.movementX,
+    top: props.data.top + e.movementY,
+  });
+};
+const handleMouesup = () => {
+  document.removeEventListener('mousemove', handleMousemove);
+  document.removeEventListener('mouseup', handleMouesup);
+};
+
 const handleMousedown = () => {
-  layerStore.addSelectedLayers([props.data]);
+  layerStore.addSelectedLayer([props.data]);
+  document.addEventListener('mousemove', handleMousemove);
+  document.addEventListener('mouseup', handleMouesup);
 };
 </script>
 
