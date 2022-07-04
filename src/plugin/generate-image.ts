@@ -1,5 +1,5 @@
 // import useTemplate from '@/store/template';
-import strawAreaCss from '@/layout/EditorArea/index.scss';
+import strawAreaCss from '@/view/EditorArea/index.scss';
 import { useTemplate } from '@/store/template';
 
 const svgCssString = compression(strawAreaCss);

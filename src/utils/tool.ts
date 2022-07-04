@@ -31,15 +31,9 @@ export const fileToBase64 = (file: File) => {
  * 返回一个不会重复的随机字符
  * @returns {string}
  */
-const codes: any = {};
-export const assistForGenRandomCode = (): string =>
-  Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
 
-export const genRandomCode = () => {
-  let code = assistForGenRandomCode();
-  codes[code] && (code = assistForGenRandomCode());
-  codes[code] = 1;
-  return code;
+export const genRandomCode = (): string => {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
 };
 
 // 获取图片的宽高
@@ -76,5 +70,5 @@ export const handleSingleDownload = async (
   format?: string,
   name?: string,
 ): Promise<void> => {
-  FileSaver.saveAs(blobUrl, `${name ? name : assistForGenRandomCode()}.${format ? format : 'png'}`);
+  FileSaver.saveAs(blobUrl, `${name ? name : genRandomCode()}.${format ? format : 'png'}`);
 };

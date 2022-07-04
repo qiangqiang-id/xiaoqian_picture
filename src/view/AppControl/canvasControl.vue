@@ -23,8 +23,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import ControlPanelHeade from '../components/ControlPanelHeade.vue';
-import ColorPicker from '../components/ColorPicker.vue';
+import ControlPanelHeade from '../EditorArea/components/ControlPanelHeade.vue';
+import ColorPicker from '../EditorArea/components/ColorPicker.vue';
 import useTemplate from '@/store/template';
 import useBackground from '@/store/background';
 

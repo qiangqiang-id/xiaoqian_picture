@@ -1,12 +1,6 @@
 <template>
   <div class="control-container">
     <component :is="controlComponent" />
-
-    <div class="tools-bar">
-      <BarOpacity :model-value="0.2" @input="handleInput" />
-
-      <BarTool />
-    </div>
   </div>
 </template>
 
