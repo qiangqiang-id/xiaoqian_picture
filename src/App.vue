@@ -1,20 +1,22 @@
 <template>
+  <!-- 头部 -->
   <AppHeader />
-
+  <!-- 主体 -->
   <el-container>
+    <!-- 资源区 -->
     <AppPanel />
-
+    <!-- 画布主体区域 -->
     <AppMain />
-
+    <!-- 工具区 -->
     <AppControl />
   </el-container>
 </template>
 
 <script lang="ts">
-import AppHeader from './layout/AppHeader.vue';
-import AppMain from './layout/AppMain.vue';
-import AppPanel from './layout/AppPanel/index.vue';
-import AppControl from './layout/AppControl/index.vue';
+import AppHeader from './view/AppHeader.vue';
+import AppMain from './view/AppMain.vue';
+import AppPanel from './view/AppPanel/index.vue';
+import AppControl from './view/AppControl/index.vue';
 import { defineComponent } from 'vue';
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
