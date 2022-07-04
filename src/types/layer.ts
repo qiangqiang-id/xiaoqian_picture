@@ -10,7 +10,7 @@ export interface Base {
   angle: number;
 }
 
-export interface layerText extends Base {
+export interface LayerText extends Base {
   text: string;
   richText: string;
   fontSize: number;
@@ -85,7 +85,7 @@ export interface MultiTextStyle {
   styleLength: Array<number>; // [1, 2]
 }
 
-export interface layerImage extends Base {
+export interface LayerImage extends Base {
   src: string;
   opacity: number;
   format: string;
@@ -107,7 +107,7 @@ export interface Mask {
 /**
  * 图形
  */
-export interface layerShape extends Base {
+export interface LayerShape extends Base {
   src: string;
   fill: string;
   strokeColor: string;
@@ -123,4 +123,4 @@ export interface layerShape extends Base {
   strokeSpacing: number;
 }
 
-export type Layer = layerImage | layerText | layerShape;
+export type Layer = LayerImage | LayerText | LayerShape;

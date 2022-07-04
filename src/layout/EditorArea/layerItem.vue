@@ -28,9 +28,11 @@ const props = defineProps({
 });
 
 const layerStyle = computed(() => {
-  const { left, top, angle } = props.data;
+  const { left, top, angle, width, height } = props.data;
   return {
     transform: `translate(${left}px,${top}px) rotate(${angle}deg)`,
+    width: width + 'px',
+    height: height + 'px',
   };
 });
 

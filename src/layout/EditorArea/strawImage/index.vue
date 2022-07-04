@@ -1,13 +1,6 @@
 <template>
   <div class="layer-image">
-    <img
-      class="layer-image-content"
-      :src="data.src"
-      :style="{
-        width: data.width + 'px',
-        height: data.height + 'px',
-      }"
-    />
+    <img class="layer-image-content" :src="data.src" />
   </div>
 </template>
 
@@ -39,6 +32,7 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     -webkit-user-drag: none; // 不可拖动图片
+    user-select: none;
   }
 }
 </style>

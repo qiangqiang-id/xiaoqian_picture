@@ -37,5 +37,6 @@ const rootStyle = computed(() => {
 
 <style lang="scss" scoped>
 .layer-text {
+  user-select: none;
 }
 </style>
